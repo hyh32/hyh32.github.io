@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CTFHUB-信息泄露-备份文件下载-vim缓存 | 章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前置知识： 12345678在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容以 index.php 为例：第一次产生的交换文件名为 .index.php.swp再次意外退出后，将会产生名为 .index.php.swo 的交换文件第三次产生的交换文件则为 .index.php.swn  进入靶机发现提示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFHUB-信息泄露-备份文件下载-vim缓存">
+<meta property="og:url" content="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="前置知识： 12345678在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容以 index.php 为例：第一次产生的交换文件名为 .index.php.swp再次意外退出后，将会产生名为 .index.php.swo 的交换文件第三次产生的交换文件则为 .index.php.swn  进入靶机发现提示">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/1.png">
+<meta property="og:image" content="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/2.png">
+<meta property="article:published_time" content="2022-10-12T09:47:23.000Z">
+<meta property="article:modified_time" content="2022-10-13T02:26:24.144Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CTFHUB-信息泄露-备份文件下载-vim缓存" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T09:47:23.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CTFHUB-信息泄露-备份文件下载-vim缓存
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，</span><br><span class="line">当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</span><br><span class="line"></span><br><span class="line">以 index.php 为例：第一次产生的交换文件名为 .index.php.swp</span><br><span class="line"></span><br><span class="line">再次意外退出后，将会产生名为 .index.php.swo 的交换文件</span><br><span class="line"></span><br><span class="line">第三次产生的交换文件则为 .index.php.swn</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机发现提示</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/1.png"></p>
+<p>由前置知识分析，感觉index.php的vim缓存文件应该是.index.php.swp，.index.php.swo，.index.php.swn其中一个，访问.index.php.swp，下载一个文件，打开直接发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/2.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" data-id="cl9hxjpfm000i78v4exow9ay6" data-title="CTFHUB-信息泄露-备份文件下载-vim缓存" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          CTFHUB-信息泄露-备份文件下载-.DS_Store
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">CTFHUB-信息泄露-备份文件下载-bak文件</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

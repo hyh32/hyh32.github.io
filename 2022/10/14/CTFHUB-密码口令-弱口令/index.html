@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>CTFHUB-密码口令-弱口令 | 章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前置知识： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990Burpsuit的几种爆破模式：一：snipe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFHUB-密码口令-弱口令">
+<meta property="og:url" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="前置知识： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990Burpsuit的几种爆破模式：一：snipe">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/55.png">
+<meta property="og:image" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png">
+<meta property="og:image" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/1.png">
+<meta property="og:image" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png">
+<meta property="article:published_time" content="2022-10-14T02:41:00.000Z">
+<meta property="article:modified_time" content="2022-10-14T03:25:13.297Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/55.png">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-CTFHUB-密码口令-弱口令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T02:41:00.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      CTFHUB-密码口令-弱口令
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">Burpsuit的几种爆破模式：</span><br><span class="line">一：sniper【狙击手】</span><br><span class="line"></span><br><span class="line">这种攻击基于原始的请求内容，需要一个字典，每次用字典里的一个值去代替一个待攻击的原始值。</span><br><span class="line"></span><br><span class="line">攻击次数=参数个数X字典内元素个数</span><br><span class="line"></span><br><span class="line">例如：原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，</span><br><span class="line"></span><br><span class="line">字典:</span><br><span class="line"></span><br><span class="line">&#123; 1 ,2 &#125;;</span><br><span class="line"></span><br><span class="line">那么会产生四个请求：</span><br><span class="line"></span><br><span class="line">name=1 , password=bb</span><br><span class="line"></span><br><span class="line">name=2 , password=bb</span><br><span class="line"></span><br><span class="line">name=aa , password=1</span><br><span class="line"></span><br><span class="line">name=aa , password=2</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：竞争条件测试（选择Null payloads），密码、验证码暴力破解，重放攻击等场景。</span><br><span class="line"></span><br><span class="line">二、battering ram 【撞击物】</span><br><span class="line"></span><br><span class="line">也需要一个字典，这会使字典里每个值同时赋给所有参数。上例的结果为：</span><br><span class="line"></span><br><span class="line">name=1 , password=1</span><br><span class="line"></span><br><span class="line">name=2, password=2</span><br><span class="line"></span><br><span class="line">攻击次数=字典内元素个数</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：撞裤。</span><br><span class="line"></span><br><span class="line">三、pitchfork【相交叉】</span><br><span class="line"></span><br><span class="line">需要的字典个数=参数个数。</span><br><span class="line"></span><br><span class="line">每个请求是由每个参数轮流取各自负载集合里的值得到。</span><br><span class="line"></span><br><span class="line">如果每个字典里元素数量不一致，那么请求个数以最小的那个为准。</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，payload1=&#123;  1  ， 2  &#125;， payload2=&#123;  3  , 4 ， 5 &#125;</span><br><span class="line"></span><br><span class="line">会产生两个请求：</span><br><span class="line"></span><br><span class="line">name=1 , password=3</span><br><span class="line"></span><br><span class="line">name=2 , password=4</span><br><span class="line"></span><br><span class="line">攻击次数=字典内元素个数最小值</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：恶意注册。</span><br><span class="line"></span><br><span class="line">四、cluster bomb  【炸弹丛】（最常用）</span><br><span class="line"></span><br><span class="line">需要的字典个数=参数个数。</span><br><span class="line"></span><br><span class="line">最后产生的所有请求是各参数取值的所有组合，攻击次数是字典内元素个数的集合。</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，payload1=&#123;  1  ， 2  &#125;， payload2=&#123;  3  , 4 ， 5 &#125;</span><br><span class="line"></span><br><span class="line">会产生 请求：</span><br><span class="line"></span><br><span class="line"> name=1 , password=3</span><br><span class="line"></span><br><span class="line"> name=1 , password=4</span><br><span class="line"></span><br><span class="line"> name=1 , password=5</span><br><span class="line"></span><br><span class="line">name=2 , password=3</span><br><span class="line"></span><br><span class="line">name=2 , password=4</span><br><span class="line"></span><br><span class="line">name=2 , password=5</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：账号、密码暴力破解。</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机，发现一个用户密码登录页面，</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/55.png"></p>
+<p>直接使用burpsuit抓包，</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png"></p>
+<p>添加admin 和 123456为变量，然后选择bp的<strong>Cluster bomb（集束炸弹模式）</strong>，用户名手动添加几个常见的admin，test，uesr，以及ctfhub，密码直接选择密码爆破字典里的top3000，然后开始爆破。完成后按长度排序，发现用户为admin，密码为password时的长度与其他的不同</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/1.png"></p>
+<p>然后查看该页面，发现flag</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/" data-id="cl9hxjpfp000o78v4as6c1jys" data-title="CTFHUB-密码口令-弱口令" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          CTFHUB-密码口令-默认口令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">CTFHUB-信息泄露-.hg泄露</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

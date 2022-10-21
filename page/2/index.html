@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="欢迎来到章小豫的博客哦，一起进步呀(￣y▽,￣)╭">
+<meta property="og:type" content="website">
+<meta property="og:title" content="章小豫的博客">
+<meta property="og:url" content="http://example.com/page/2/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="欢迎来到章小豫的博客哦，一起进步呀(￣y▽,￣)╭">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-CTFHUB-密码口令-弱口令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T02:41:00.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/">CTFHUB-密码口令-弱口令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">Burpsuit的几种爆破模式：</span><br><span class="line">一：sniper【狙击手】</span><br><span class="line"></span><br><span class="line">这种攻击基于原始的请求内容，需要一个字典，每次用字典里的一个值去代替一个待攻击的原始值。</span><br><span class="line"></span><br><span class="line">攻击次数=参数个数X字典内元素个数</span><br><span class="line"></span><br><span class="line">例如：原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，</span><br><span class="line"></span><br><span class="line">字典:</span><br><span class="line"></span><br><span class="line">&#123; 1 ,2 &#125;;</span><br><span class="line"></span><br><span class="line">那么会产生四个请求：</span><br><span class="line"></span><br><span class="line">name=1 , password=bb</span><br><span class="line"></span><br><span class="line">name=2 , password=bb</span><br><span class="line"></span><br><span class="line">name=aa , password=1</span><br><span class="line"></span><br><span class="line">name=aa , password=2</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：竞争条件测试（选择Null payloads），密码、验证码暴力破解，重放攻击等场景。</span><br><span class="line"></span><br><span class="line">二、battering ram 【撞击物】</span><br><span class="line"></span><br><span class="line">也需要一个字典，这会使字典里每个值同时赋给所有参数。上例的结果为：</span><br><span class="line"></span><br><span class="line">name=1 , password=1</span><br><span class="line"></span><br><span class="line">name=2, password=2</span><br><span class="line"></span><br><span class="line">攻击次数=字典内元素个数</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：撞裤。</span><br><span class="line"></span><br><span class="line">三、pitchfork【相交叉】</span><br><span class="line"></span><br><span class="line">需要的字典个数=参数个数。</span><br><span class="line"></span><br><span class="line">每个请求是由每个参数轮流取各自负载集合里的值得到。</span><br><span class="line"></span><br><span class="line">如果每个字典里元素数量不一致，那么请求个数以最小的那个为准。</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，payload1=&#123;  1  ， 2  &#125;， payload2=&#123;  3  , 4 ， 5 &#125;</span><br><span class="line"></span><br><span class="line">会产生两个请求：</span><br><span class="line"></span><br><span class="line">name=1 , password=3</span><br><span class="line"></span><br><span class="line">name=2 , password=4</span><br><span class="line"></span><br><span class="line">攻击次数=字典内元素个数最小值</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：恶意注册。</span><br><span class="line"></span><br><span class="line">四、cluster bomb  【炸弹丛】（最常用）</span><br><span class="line"></span><br><span class="line">需要的字典个数=参数个数。</span><br><span class="line"></span><br><span class="line">最后产生的所有请求是各参数取值的所有组合，攻击次数是字典内元素个数的集合。</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"></span><br><span class="line">原始请求中</span><br><span class="line"></span><br><span class="line"> name=aa , password=bb，payload1=&#123;  1  ， 2  &#125;， payload2=&#123;  3  , 4 ， 5 &#125;</span><br><span class="line"></span><br><span class="line">会产生 请求：</span><br><span class="line"></span><br><span class="line"> name=1 , password=3</span><br><span class="line"></span><br><span class="line"> name=1 , password=4</span><br><span class="line"></span><br><span class="line"> name=1 , password=5</span><br><span class="line"></span><br><span class="line">name=2 , password=3</span><br><span class="line"></span><br><span class="line">name=2 , password=4</span><br><span class="line"></span><br><span class="line">name=2 , password=5</span><br><span class="line"></span><br><span class="line">这种模式主要适用于：账号、密码暴力破解。</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机，发现一个用户密码登录页面，</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/55.png"></p>
+<p>直接使用burpsuit抓包，</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png"></p>
+<p>添加admin 和 123456为变量，然后选择bp的<strong>Cluster bomb（集束炸弹模式）</strong>，用户名手动添加几个常见的admin，test，uesr，以及ctfhub，密码直接选择密码爆破字典里的top3000，然后开始爆破。完成后按长度排序，发现用户为admin，密码为password时的长度与其他的不同</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/1.png"></p>
+<p>然后查看该页面，发现flag</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/" data-id="cl9hxjpfp000o78v4as6c1jys" data-title="CTFHUB-密码口令-弱口令" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-hg泄露" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T01:52:08.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/">CTFHUB-信息泄露-.hg泄露</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mercurial 是一种轻量级分布式版本控制系统，</span><br><span class="line"></span><br><span class="line">使用hg init 新建仓库的时候，会生成一个备份文件.hg。当然也存在着泄露问题，不过较为少见 ，关于这个.hg文件泄露，网上的示例也很少，暂时还没有找到合适的呈现给大家 。</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机，发现提示 ，“试着手工解决”，一开始没明白什么意思。</p>
+<p><img src="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/0.png"></p>
+<p>先用dirsearch扫描下目录，</p>
+<p><img src="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/1.png"></p>
+<p>访问&#x2F;.hg&#x2F;dirstate，第一次直接403,以为这种方法行不通，就没继续尝试，而是去百度找下相应漏洞利用，发现网上的利用方式是用dvcs-ripper，具体见下</p>
+<p><img src="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/4.png"></p>
+<p>使用这个命令后，发现下载的.hg文件里没有flag相关信息，然后就没了思路。再回到靶机查看是不是有漏掉的信息，然后注意到了“不太好使的情况下，试着手工解决”，再次访问&#x2F;.hg&#x2F;dirstate，这次居然下载了一个文件，打开发现flag的一个txt文件</p>
+<p><img src="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/2.png"></p>
+<p>访问该文件，发现flag</p>
+<p><img src="/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/14/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-hg%E6%B3%84%E9%9C%B2/" data-id="cl9hxjpfm000g78v4fh799g95" data-title="CTFHUB-信息泄露-.hg泄露" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-SVN泄露" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/" class="article-date">
+  <time class="dt-published" datetime="2022-10-13T13:55:38.000Z" itemprop="datePublished">2022-10-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/">CTFHUB-信息泄露-SVN泄露</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.svn文件是subversion的版本控制信息文件 当某个目录处于subversion的版本控制时，在这个目录中就会.svn这个文件夹，这个.svn文件夹中的文件就是一些版本信息文件，供subversion使用，一般不要人为去改这些文件。</span><br></pre></td></tr></table></figure>
+
+<p>前置工具下载：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">在Kali下下载工具dvcs-ripper——专门针对SVN泄露问题</span><br><span class="line"></span><br><span class="line">1，sudo apt-get install perl libio-socket-ssl-perl libdbd-sqlite3-perl libclass-dbi-perl libio-all-lwp-perl #安装环境</span><br><span class="line">2，sudo apt-get install libparallel-forkmanager-perl libredis-perl libalgorithm-combinatorics-perl</span><br><span class="line">#faster git rip（可选，更快的）,</span><br><span class="line">3，sudo apt-get install cvs subversion git bzr mercurial（千万别，很大，要下很久）</span><br><span class="line">#And if you need all clients supported:（如果你需要支持所有客户端）</span><br><span class="line">4，git clone https://github.com/kost/dvcs-ripper #下载</span><br><span class="line"></span><br><span class="line">注：不是四步都执行，执行1-3中任一一个，然后再执行4，工具就下载好了。</span><br><span class="line">使用方法 ：</span><br><span class="line">rip-svn.pl -v -u http://www.example.com/.svn/</span><br><span class="line">例子：</span><br><span class="line">./rip-svn.pl -v -u http://challenge-b339ce6a31fb709c.sandbox.ctfhub.com:10800/.svn/</span><br><span class="line"></span><br><span class="line">注释：</span><br><span class="line">如果输入命令后显示未找到命令，就在前面加上./，原因可能跟目录有关</span><br></pre></td></tr></table></figure>
+
+<p>进入环境，发现<img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/10.png"></p>
+<p>题目就是考察.svn文件 知识的，直接访问.svn试试，</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/0.png"></p>
+<p>发现无法访问，这时就用到开始下载的工具了，执行命令</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/3.png"></p>
+<p>但是发现dvcs-ripper中只有一个index.html文件，而且该文件里没有flag相关信息。这是正常的，我们在dvcs-ripper下打开终端，</p>
+<p>输入 ls -al，</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/4.png"></p>
+<p>发现里面还有个隐藏文件夹.svn，进入该文件夹，</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/5.png"></p>
+<p>接下来很好办了，就一个一个文件找flag信息，最后在pristine&#x2F;02下的文件里找到flag。</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/9.png"></p>
+<p>注：dvcs-rippper下的wc.db中也有flag的信息，是一个txt文件</p>
+<p><img src="/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/6.png"></p>
+<p>访问这个文件，是打不开的，是个错误信息。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/13/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-SVN%E6%B3%84%E9%9C%B2/" data-id="cl9hxjpfk000c78v40j5f78vh" data-title="CTFHUB-信息泄露-SVN泄露" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-备份文件下载-DS-Store" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T15:30:31.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/">CTFHUB-信息泄露-备份文件下载-.DS_Store</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ds_store是自定义属性的隐藏文件。ds_store全称“Desktop Services Store”，</span><br><span class="line">是一种由苹果公司的Mac OS X操作系统所创造的隐藏文件，目的在于存贮目录的自定义属性，</span><br><span class="line">例如文件们的图标位置或者是背景色的选择。</span><br></pre></td></tr></table></figure>
+
+<p>进入页面发现提示<img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/1.png"></p>
+<p>猜想flag很可能在隐藏文件DS_Store文件里，访问网站的.DS_Store文件，下载DS_Store文件，打开发现</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/2.png"></p>
+<p>首先我想的是txt文件前的数字是不是采用了什么编码，然后我试着解码，折腾了好一段时间也没发现这些数字隐藏了什么信息，于是放弃了这个思路。随后看到数字后面紧挨着.txt，猜想flag可能在网站的该文件里，把数字间的空格去掉试着访问该文件，发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-DS-Store/" data-id="cl9hxjpfl000e78v4514r3s9u" data-title="CTFHUB-信息泄露-备份文件下载-.DS_Store" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-备份文件下载-vim缓存" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T09:47:23.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/">CTFHUB-信息泄露-备份文件下载-vim缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，</span><br><span class="line">当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</span><br><span class="line"></span><br><span class="line">以 index.php 为例：第一次产生的交换文件名为 .index.php.swp</span><br><span class="line"></span><br><span class="line">再次意外退出后，将会产生名为 .index.php.swo 的交换文件</span><br><span class="line"></span><br><span class="line">第三次产生的交换文件则为 .index.php.swn</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机发现提示</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/1.png"></p>
+<p>由前置知识分析，感觉index.php的vim缓存文件应该是.index.php.swp，.index.php.swo，.index.php.swn其中一个，访问.index.php.swp，下载一个文件，打开直接发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/2.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" data-id="cl9hxjpfm000i78v4exow9ay6" data-title="CTFHUB-信息泄露-备份文件下载-vim缓存" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-备份文件下载-bak文件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T08:55:58.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/">CTFHUB-信息泄露-备份文件下载-bak文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bak是一个备份文件，为文件格式扩展名。这类文件一般在.bak前面加上应该有原来的扩展名比如windows.dll.bak，或是windows_dll.bak，有的则是由原文件的后缀名和bak混合而成。</span><br></pre></td></tr></table></figure>
+
+<p>开始做题，进入页面，<img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/1.png"></p>
+<p>发现flag在index.php中，由本题题目“bak文件”以及前置知识分析得，flag应该在index.php文件的备份文件里，index.php备份文件为index.php.bak，访问该文件，直接下载了index.php.bak 文件，打开发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/3.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/" data-id="cl9hxjpfn000k78v4f78d3b2i" data-title="CTFHUB-信息泄露-备份文件下载-bak文件" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-备份文件下载-网站源码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T08:42:01.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/">CTFHUB-信息泄露-备份文件下载-网站源码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>进入页面，发现网站源码文件的相关提示，由于组合较少，可以直接手动组合验证文件是否存在（组合多的话还是使用bp爆破验证）</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/1.png" alt="1"></p>
+<p>最后访问<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a>, 下载了一个压缩包文件，解压打开发现含有flag的一个txt文件，</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/2.png"></p>
+<p>但是打开发现没有flag，想到这题是源码泄露，那么该txt文件应该存在于网站服务器上，试着在网站上访问该txt文件，发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/3.png" alt="3"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/" data-id="cl9hxjpfo000m78v45mumcly8" data-title="CTFHUB-信息泄露-备份文件下载-网站源码" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-PHPINFO" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-PHPINFO/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T08:36:13.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-PHPINFO/">CTFHUB-信息泄露-PHPINFO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>直接从phpinfo页面信息查找flag关键字样，直接一步到位。</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-PHPINFO/1.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-PHPINFO/" data-id="cl9hxjpfi000978v4f3jp73p5" data-title="CTFHUB-信息泄露-PHPINFO" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-CTFHUB-信息泄露-目录遍历" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T08:26:25.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/">CTFHUB-信息泄露-目录遍历</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>进入靶机，看见<strong>点击查找flag字样</strong>，点击进入发现</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/2.png" alt="2"></p>
+<p>根据题目“目录遍历”想到，应该手动依次点击文件查找含有flag字样的关键信息，最后在&#x2F;2&#x2F;3下找到flag.txt<img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/1.png" alt="1"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86/" data-id="cl9hxjpfr000s78v48v57e8rn" data-title="CTFHUB-信息泄露-目录遍历" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Test-Post" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/07/Test-Post/" class="article-date">
+  <time class="dt-published" datetime="2022-10-07T05:06:25.000Z" itemprop="datePublished">2022-10-07</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/07/Test-Post/">Test Post</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="三级标题哦"><a href="#三级标题哦" class="headerlink" title="三级标题哦"></a>三级标题哦</h3><hr>
+<p>这是分割线哦</p>
+<hr>
+<p><em>斜体</em> <strong>粗体</strong> <em><strong>又斜体又粗体</strong></em><br>换行<br>换行</p>
+<p>换行<br>啊哈哈</p>
+<p><a target="_blank" rel="noopener" href="https://www.baidu.com/">一个百度链接</a><br>一个百度链接(<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a>)</p>
+<p>好奇怪啊，为什么我的链接字样是在中间的，我没有给他们样式啊，奇奇怪怪的</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="comment">//这是一句话木马，连接密码是cmd</span></span><br><span class="line">    @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&quot;cmd&quot;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>START</li>
+<li>首先</li>
+<li>其次</li>
+<li>接着</li>
+<li>然后</li>
+<li><!--最后--></li>
+<li>END</li>
+</ol>
+<hr>
+<ul>
+<li><p>张三</p>
+</li>
+<li><p>李四爹</p>
+<ul>
+<li><p>李四<br>$$</p>
+<p>$$</p>
+<ul>
+<li><p>王五爹</p>
+<ul>
+<li>王五</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><del>写错了，删了它</del></p>
+<p><u>用下划线做个笔记吧</u></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;HelloWorld&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th align="center">张三</th>
+<th align="center">李四</th>
+<th align="center">王五</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">年龄</td>
+<td align="center">22</td>
+<td align="center">21</td>
+<td align="center">32</td>
+</tr>
+<tr>
+<td align="center">性别</td>
+<td align="center">男</td>
+<td align="center">男</td>
+<td align="center">男</td>
+</tr>
+</tbody></table>
+<p>HTML[^1]是个啥东东？？</p>
+<p>不过特殊<br>这样应该就可以了 比如、前面加个反斜杠&amp;  </p>
+<p>代办事项</p>
+<ul>
+<li><input disabled type="checkbox"> 支持以 PDF 格式导出文稿</li>
+<li><input disabled type="checkbox"> 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率</li>
+<li><input checked disabled type="checkbox"> 新增 Todo 列表功能</li>
+</ul>
+<hr>
+<ul>
+<li><input checked disabled type="checkbox"> 爱着宝贝</li>
+<li><input checked disabled type="checkbox"> 想宝贝</li>
+<li><input disabled type="checkbox"> 娶宝贝作老婆</li>
+</ul>
+<hr>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/07/Test-Post/" data-id="cl9hxjpfw001478v4g4ep44yl" data-title="Test Post" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

