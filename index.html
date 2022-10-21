@@ -122,7 +122,7 @@
 <p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/3.png"></p>
 <hr>
 <hr>
-<p> <strong>写一个题目的目的不仅仅是找到正确flag得分，更重要的是从这个题目中学到了些什么知识</strong></p>
+<p>​              <em><strong>写一个题目的目的不仅仅是找到正确flag得分，更重要的是从这个题目中学到了些什么知识</strong></em></p>
 <p>这个题目我只是依靠经验做出来了，但是如果让我具体分析</p>
 <p>1，为什么要绕过<code>__wakeup()</code>，不绕过为什么不行？</p>
 <p>2，为什么提交payload后不是显示的是<code>x = __FILE__;</code>的源码？触发__construct()函数不是会将$x赋值为当前文件件绝对路径吗？我说不出来……</p>
@@ -139,7 +139,7 @@
 <p>在本地测试一下，</p>
 <p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/6.png"></p>
 <p>发现unserialize()函数返回值是类user的一个实例对象，其中对象里变量$age，$name的值是序列化字符串里对应的，10，tome。</p>
-<p>简单说，不管类中变量是什么，构造的序列化字符串里变量的值是什么，反序列化后创建的该类对象里的变量值就是什么。</p>
+<p><strong>简单说，不管类中变量值是什么，构造的序列化字符串里变量的值是什么，反序列化后创建的该类对象里的变量值就是什么。</strong></p>
 <p>上述代码运行结果如下，</p>
 <p><img src="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/5.png"></p>
 <p>验证了上述猜测。</p>
@@ -158,13 +158,13 @@
 
 
 
-<p>（1）	 <strong>说明<code>__construct()</code>会在创建对象的时候(<code>$class = new TestClass();</code>)被触发，但是反序列化时<code>$b = unserialize($a);</code>，不会被触发。</strong></p>
+<p>（1）<strong>说明<code>__construct()</code>会在创建对象的时候(<code>$class = new TestClass();</code>)被触发，但是反序列化时<code>$b = unserialize($a);</code>，不会被触发。</strong></p>
 <p>为什么反序列化返回了一个对象，但是不会触发<code>__construct()</code>呢？下面是我的一些理解，有不正确的地方请各位大佬批评指正，</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">虽然有对象被创建，但是因为unserialize函数不一定返回的是对象，可返回 integer、float、string、array 或 object。</span><br><span class="line">如果反序列化返回的不是一个对象，那么__construct()就不会被触发， 而integer、float、string、array这些数据类型应该是一样的。</span><br><span class="line">所以反序列化返回的是一个对象时，也不会触发__construct()。</span><br><span class="line">因此可以理解为什么反序列化对象字符为对象的时候，虽然有对象被创建，甚至可以调用返回对象中的函数，但是并不会触发__construct()函数</span><br></pre></td></tr></table></figure>
 
 
 
-<p>（2）	<strong>说明<code>__destruct()</code>会在代码执行完成后被触发一次，因为在php中，程序在运行结束后，会自动的销毁对象！这时会触发destruct()函数。反序列化完成时会触发一次(我理解的是销毁对象)，所以才输出两个<code>__destruct()!!!</code>。</strong></p>
+<p>（2）<strong>说明<code>__destruct()</code>会在代码执行完成后被触发一次，因为在php中，程序在运行结束后，会自动的销毁对象！这时会触发destruct()函数。反序列化完成时会触发一次(我理解的是销毁对象)，所以才输出两个<code>__destruct()!!!</code>。</strong></p>
 <p>反序列化完成时会触发<code>__destruct()</code>函数一次(我理解的是销毁对象)，这个怎么理解呢，直接上代码说明，</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="comment">//$b = unserialize($a);</span></span><br><span class="line"><span class="comment">//没有反序列化的情况下，输出__destruct()!!!</span></span><br><span class="line">------------------------------------------------------------------------------------------------------------</span><br><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$b</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__destruct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;__destruct()!!!&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">TestClass</span>();</span><br><span class="line"><span class="variable">$a</span>=<span class="title function_ invoke__">serialize</span>(<span class="variable">$class</span>);</span><br><span class="line"><span class="variable">$b</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$a</span>);</span><br><span class="line"><span class="comment">//有反序列的情况下，输出__destruct()!!!__destruct()!!!</span></span><br></pre></td></tr></table></figure>
 
@@ -173,8 +173,9 @@
 <hr>
 <hr>
 <p>最后总的来梳理一下题目反序列化时的过程，</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1，输入序列化后的字符，提交后，执行unserialize()函数之前，先检查类里是否有__wakeup()函数，//这时不会触发__construct()函数</span><br><span class="line">2，</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1，运行poc，输入序列化后的字符串  O:1:&quot;X&quot;:1:&#123;s:1:&quot;x&quot;;s:37:&quot;D:\桌面\工具\php\teacher.php&quot;;&#125;</span><br><span class="line">修改fllllllag.php文件路径为  /var/www/html/fllllllag.php ，并修改相应字符长度值为27。</span><br><span class="line">提交后，在执行unserialize()函数之前，先检查类里是否有__wakeup()函数，本题中有，就会先执行该函数，</span><br><span class="line">然后会把$x的值赋值为当前文件的绝对路径，我们想要的是fllllllag.php文件，于是需要绕过__wakeup()函数。</span><br><span class="line"></span><br><span class="line">2，开始执行unserialize()函数，由于靶机源码中没有$class = new TestClass()这样的创建实体对象代码，所以这时不会触发__construct()函数（不理解的话，可以看文章前面的分析）</span><br><span class="line"></span><br><span class="line">3，反序列化后，将传入的序列化字符串中的变量$x的值 /var/www/html/fllllllag.php 赋值给X类中的$x，</span><br><span class="line"></span><br><span class="line">4，程序执行完毕，触发 __destruct()函数，并显示路径为$x的文件内容。</span><br></pre></td></tr></table></figure>
 
+<p>———————————————————————<strong>END</strong>——————————————————————————-</p>
 
       
     </div>
