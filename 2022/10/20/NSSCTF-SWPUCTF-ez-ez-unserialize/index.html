@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/6.png">
 <meta property="og:image" content="http://example.com/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/5.png">
 <meta property="article:published_time" content="2022-10-20T10:00:30.000Z">
-<meta property="article:modified_time" content="2022-10-21T04:08:51.032Z">
+<meta property="article:modified_time" content="2022-10-21T04:11:34.046Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
@@ -180,7 +180,7 @@
 <p>最后总的来梳理一下题目反序列化时的过程，</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1，运行poc，输入序列化后的字符串  O:1:&quot;X&quot;:1:&#123;s:1:&quot;x&quot;;s:37:&quot;D:\桌面\工具\php\teacher.php&quot;;&#125;</span><br><span class="line">修改fllllllag.php文件路径为  /var/www/html/fllllllag.php ，并修改相应字符长度值为27。</span><br><span class="line">提交后，在执行unserialize()函数之前，先检查类里是否有__wakeup()函数，本题中有，就会先执行该函数，</span><br><span class="line">然后会把$x的值赋值为当前文件的绝对路径，我们想要的是fllllllag.php文件，于是需要绕过__wakeup()函数。</span><br><span class="line"></span><br><span class="line">2，开始执行unserialize()函数，由于靶机源码中没有$class = new TestClass()这样的创建实体对象代码，所以这时不会触发__construct()函数（不理解的话，可以看文章前面的分析）</span><br><span class="line"></span><br><span class="line">3，反序列化后，将传入的序列化字符串中的变量$x的值 /var/www/html/fllllllag.php 赋值给X类中的$x，</span><br><span class="line"></span><br><span class="line">4，程序执行完毕，触发 __destruct()函数，并显示路径为$x的文件内容。</span><br></pre></td></tr></table></figure>
 
-<p>———————————————————————<strong>END</strong>——————————————————————————-</p>
+<p>—————————————————————————–<strong>END</strong>——————————————————————————————————-</p>
 
       
     </div>
