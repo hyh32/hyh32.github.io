@@ -100,20 +100,39 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="ssh简介："><a href="#ssh简介：" class="headerlink" title="ssh简介："></a>ssh简介：</h1><p><strong>安全外壳协议</strong>（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的<strong>加密的</strong>网络传输<strong>协议</strong>，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。</p>
-<p>注：</p>
-<p>SSH仅仅是一<strong>协议标准</strong>，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。</p>
-<h1 id="安装ssh"><a href="#安装ssh" class="headerlink" title="安装ssh"></a>安装ssh</h1><h2 id="Linux下安装"><a href="#Linux下安装" class="headerlink" title="Linux下安装"></a>Linux下安装</h2><p>使用SSH时，被登录的主机需要安装并运行SSH Server。SSH实现有很多种，比如在Linux中可以用 OpenSSH：</p>
+        <h1 id="SSH简介和基本使用"><a href="#SSH简介和基本使用" class="headerlink" title="SSH简介和基本使用"></a>SSH简介和基本使用</h1><p><strong>安全外壳协议</strong>（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的<strong>加密的</strong>网络传输<strong>协议</strong>，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">注：</span><br><span class="line">* SSH仅仅是一个协议标准，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux下安装SSH-Server"><a href="#Linux下安装SSH-Server" class="headerlink" title="Linux下安装SSH Server"></a>Linux下安装SSH Server</h2><p>使用SSH时，被登录的主机需要安装并运行SSH Server。SSH实现有很多种，比如在Linux中可以用 OpenSSH：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status ssh # 可以查看系统是否有ssh server可用</span><br><span class="line">sudo apt-get install openssh-server #安装openssh</span><br><span class="line">sudo systemctl enable ssh</span><br><span class="line">sudo systemctl start ssh</span><br></pre></td></tr></table></figure>
 
+<h2 id="数据加密方式"><a href="#数据加密方式" class="headerlink" title="数据加密方式"></a>数据加密方式</h2><p>对数据进行加密的方式主要有两种：对称加密（密钥加密）和非对称加密（公钥加密）。</p>
+<p>对称加密指加密解密使用的是同一套秘钥。Client端把密钥加密后发送给Server端，Server用同一套密钥解密。对称加密的加密强度比较高，很难破解。但是，Client数量庞大，很难保证密钥不泄漏。如果有一个Client端的密钥泄漏，那么整个系统的安全性就存在严重的漏洞。为了解决对称加密的漏洞，于是就产生了非对称加密。非对称加密有两个密钥：“公钥”和“私钥”。<strong>公钥加密后的密文，只能通过对应的私钥进行解密。想从公钥推理出私钥几乎不可能</strong>，所以非对称加密的安全性比较高。</p>
+<p>SSH的加密原理中，使用了RSA非对称加密算法。</p>
+<h2 id="远程登录"><a href="#远程登录" class="headerlink" title="远程登录"></a>远程登录</h2><p>ssh安全验证原理，简单来说就是SSH Server会有一对密钥，公有密钥(PubKey)和私有密钥(PriKey)。当客户端用户请求连接服务器的ssh时，服务器会把公有密钥作为回应发送给请求连接的用户，私有密钥只在本地保管。然后客户端拿到公有密钥后用其加密目标用户的密码发送给服务器，服务器完成验证后建立连接。</p>
+<p>客户端需发送以下命令并输入用户user123的密码即可：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user123@server</span><br></pre></td></tr></table></figure>
 
-
+<p>大致过程如下图所示：</p>
 <p><img src="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp" alt="img"></p>
-<h1 id="ssh工作原理"><a href="#ssh工作原理" class="headerlink" title="ssh工作原理"></a>ssh工作原理</h1><p>SSH登录主要分为两个阶段：</p>
-<ul>
-<li>协商客户端和服务端双方通信所使用的共享密钥，并用这个共享密钥实现后续会话过程的对称加密；</li>
-<li>使用非对称加密方式验证客户端的身份。</li>
-</ul>
+<p>整个过程是这样的：<br>（1）远程主机收到用户的登录请求，把自己的公钥发给用户。<br>（2）用户使用这个公钥，将登录密码加密后，发送回来。<br>（3）远程主机用自己的私钥，解密登录密码，如果密码正确，就同意用户登录。</p>
+<p>安全性问题：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* 私有密钥是只有server才有的，也就是即使中间有人截获了步骤3中client发送的带有password信息的包，也没有办法破解得知user123的密码。</span><br><span class="line"> </span><br><span class="line">* 但是有可能有攻击者可以截获步骤1 client发送的请求包，从而伪装成 server发送自己的PubKey_attacker，然后 client 再向其发送自己用PubKey_attacker加密的password，就会被攻击者用PriKey_attacker 解密，从而得到password明文密码。所以一般要求用户在收到PubKey 时自行对比验证发送该公有密钥的主机是已知的安全主机。这就是为什么我们会看到     Are you sure you want to continue connecting (yes/no)?。 信任的主机一般都保存在$HOME/.ssh/known_hosts文件中。</span><br></pre></td></tr></table></figure>
+
+<h1 id="SSH工作原理"><a href="#SSH工作原理" class="headerlink" title="SSH工作原理"></a>SSH工作原理</h1><p>SSH 协议是基于客户端-服务器模型的，其工作过程如下：</p>
+<ol>
+<li><p>客户端发起连接请求：首先，用户需要启动一个 SSH 客户端程序，并向服务器发起 SSH 连接请求。连接请求包含服务器的 IP 地址和用户的登录凭据（用户名和密码或 SSH 密钥）。</p>
+</li>
+<li><p>服务器响应连接请求：一旦服务器收到连接请求，它会检查用户提供的登录凭据。如果凭据验证成功，服务器就会向客户端发送加密的连接确认信息。</p>
+</li>
+<li><p>客户端和服务器建立加密连接：在收到连接确认信息后，客户端会生成一个随机的会话密钥，用于加密通信。然后，客户端会向服务器发送一个加密的请求，包含会话密钥和其他的连接信息。</p>
+</li>
+<li><p>SSH 会话开始：一旦客户端和服务器成功建立加密连接，SSH 会话就开始了。在会话期间，客户端可以向服务器发送各种命令和数据，并接收服务器的响应。所有的通信都经过密钥加密，以确保数据安全。</p>
+</li>
+<li><p>SSH 会话结束：当用户关闭 SSH 客户端程序时，SSH 会话就会结束。客户端程序会清除会话密钥和其他的临时数据，以确保不会有敏感信息留存在客户端。</p>
+</li>
+</ol>
+<p>总之，SSH 通过加密通信来保护远程连接，使得攻击者无法截取或修改数据。通过使用 SSH，用户可以在不暴露敏感信息的情况下，远程管理计算机和其他网络设备。</p>
 
       
     </div>
