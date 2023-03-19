@@ -74,6 +74,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ssh原理及使用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-03-19T03:52:39.000Z" itemprop="datePublished">2023-03-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/">ssh原理及使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="ssh简介："><a href="#ssh简介：" class="headerlink" title="ssh简介："></a>ssh简介：</h1><p><strong>安全外壳协议</strong>（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的<strong>加密的</strong>网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。</p>
+<p>SSH登录主要分为两个阶段：</p>
+<ul>
+<li>协商客户端和服务端双方通信所使用的共享密钥，并用这个共享密钥实现后续会话过程的对称加密；</li>
+<li>使用非对称加密方式验证客户端的身份。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/" data-id="clff73fkr0000wsv4hq7p31ws" data-title="ssh原理及使用" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-复活Google翻译" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/11/21/%E5%A4%8D%E6%B4%BBGoogle%E7%BF%BB%E8%AF%91/" class="article-date">
@@ -662,60 +710,6 @@
 
 
   
-    <article id="post-CTFHUB-RCE-eval执行" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/" class="article-date">
-  <time class="dt-published" datetime="2022-10-14T09:59:29.000Z" itemprop="datePublished">2022-10-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/">CTFHUB-RCE-eval执行</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>前置知识：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$_REQUEST[&quot;参数&quot;]具用$_POST[&quot;参数&quot;] $_GET[&quot;参数&quot;]的功能,但是$_REQUEST[&quot;参数&quot;]比较慢。通过post和get方法提交的所有数据都可以通过$_REQUEST数组[&quot;参数&quot;]获得</span><br></pre></td></tr></table></figure>
-
-<p>进入靶机，发现几行php代码，</p>
-<p><img src="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/0.png"></p>
-<p>一开始也不知道$_REQUEST是什么一回事，不会就百度啊，然后就是前置知识里讲的那样，可以使用GET方式提交参数，也可以使用POST提交，这里我是用GET方式提交的</p>
-<p>直接提交参数    ?cmd&#x3D;system(“find &#x2F; -name flag*”);   查找根目录下有含flag字符的文件，如图所示</p>
-<p><img src="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/1.png"></p>
-<p>接下来就是一个一个尝试，最终发现flag在最后一个文件里，然后使用命令 cat 文件 | base64 查看文件内容，发现</p>
-<p><img src="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/2.png"></p>
-<p>解码得flag</p>
-<p><img src="/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/3.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/14/CTFHUB-RCE-eval%E6%89%A7%E8%A1%8C/" data-id="cl9hxo4h3000520v489yu64c2" data-title="CTFHUB-RCE-eval执行" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -731,7 +725,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/web%E5%89%8D%E7%AB%AF/">web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li></ul>
     </div>
   </div>
 
@@ -746,7 +740,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
     </div>
   </div>
 
@@ -757,6 +751,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/">ssh原理及使用</a>
+          </li>
         
           <li>
             <a href="/2022/11/21/%E5%A4%8D%E6%B4%BBGoogle%E7%BF%BB%E8%AF%91/">复活Google翻译</a>
@@ -774,10 +772,6 @@
             <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/">NSSCTF-HNCTF-[Week1]Challenge__rce</a>
           </li>
         
-          <li>
-            <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/">CTFHUB-SSRF-端口扫描</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -791,7 +785,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       
-      &copy; 2022 Zhsgo Doe<br>
+      &copy; 2023 Zhsgo Doe<br>
       Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
