@@ -15,8 +15,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp">
 <meta property="og:image" content="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp">
 <meta property="article:published_time" content="2023-03-19T03:52:39.000Z">
-<meta property="article:modified_time" content="2023-03-19T11:34:39.829Z">
+<meta property="article:modified_time" content="2023-03-19T11:39:44.601Z">
 <meta property="article:author" content="Jokak Doe">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
@@ -129,6 +130,7 @@
 <li><p>SSH 会话结束：当用户关闭 SSH 客户端程序时，SSH 会话就会结束。客户端程序会清除会话密钥和其他的临时数据，以确保不会有敏感信息留存在客户端。</p>
 </li>
 </ol>
+<p><img src="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp" alt="img"></p>
 <h2 id="远程登录模型"><a href="#远程登录模型" class="headerlink" title="远程登录模型"></a>远程登录模型</h2><p>ssh安全验证原理，简单来说就是SSH Server会有一对密钥，公有密钥(PubKey)和私有密钥(PriKey)。当客户端用户请求连接服务器的ssh时，服务器会把公有密钥作为回应发送给请求连接的用户，私有密钥只在本地保管。然后客户端拿到公有密钥后用其加密目标用户的密码发送给服务器，服务器完成验证后建立连接。</p>
 <p>客户端需发送以下命令并输入用户user123的密码即可：</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh user123@server</span><br></pre></td></tr></table></figure>
