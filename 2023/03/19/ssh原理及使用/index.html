@@ -6,18 +6,20 @@
   
   <title>ssh原理及使用 | Jokak_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="ssh简介：安全外壳协议（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的加密的网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。 SSH登录主要分为两个阶段：  协商客户端和服务端双方通信所使用的共享密钥，并用这个共享密钥实现后续会话过程的对称加密； 使用非对称加密方式验证客户端的">
+  <meta name="description" content="ssh简介：安全外壳协议（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的加密的网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。 注： SSH仅仅是一协议标准，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。 安装s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ssh原理及使用">
 <meta property="og:url" content="http://example.com/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Jokak_blog">
-<meta property="og:description" content="ssh简介：安全外壳协议（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的加密的网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。 SSH登录主要分为两个阶段：  协商客户端和服务端双方通信所使用的共享密钥，并用这个共享密钥实现后续会话过程的对称加密； 使用非对称加密方式验证客户端的">
+<meta property="og:description" content="ssh简介：安全外壳协议（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的加密的网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。 注： SSH仅仅是一协议标准，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。 安装s">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp">
 <meta property="article:published_time" content="2023-03-19T03:52:39.000Z">
-<meta property="article:modified_time" content="2023-03-19T09:25:14.608Z">
+<meta property="article:modified_time" content="2023-03-19T09:49:31.250Z">
 <meta property="article:author" content="Jokak Doe">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp">
   
     <link rel="alternate" href="/atom.xml" title="Jokak_blog" type="application/atom+xml">
   
@@ -100,8 +102,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h1 id="ssh简介："><a href="#ssh简介：" class="headerlink" title="ssh简介："></a>ssh简介：</h1><p><strong>安全外壳协议</strong>（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的<strong>加密的</strong>网络传输协议，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。</p>
-<p>SSH登录主要分为两个阶段：</p>
+        <h1 id="ssh简介："><a href="#ssh简介：" class="headerlink" title="ssh简介："></a>ssh简介：</h1><p><strong>安全外壳协议</strong>（Secure Shell Protocol，简称SSH）是一种建立在应用层基础上的<strong>加密的</strong>网络传输<strong>协议</strong>，主要用来在客户端和服务器之间建立安全通信隧道。使用SSH进行远程登录，信息传输是加密的，即使信息被中途截获也不会泄露。</p>
+<p>注：</p>
+<p>SSH仅仅是一<strong>协议标准</strong>，其具体的实现有很多，既有开源实现的OpenSSH，也有商业实现方案。使用范围最广泛的当然是开源实现OpenSSH。</p>
+<h1 id="安装ssh"><a href="#安装ssh" class="headerlink" title="安装ssh"></a>安装ssh</h1><h2 id="Linux下安装"><a href="#Linux下安装" class="headerlink" title="Linux下安装"></a>Linux下安装</h2><p>使用SSH时，被登录的主机需要安装并运行SSH Server。SSH实现有很多种，比如在Linux中可以用 OpenSSH：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl status ssh # 可以查看系统是否有ssh server可用</span><br><span class="line">sudo apt-get install openssh-server #安装openssh</span><br><span class="line">sudo systemctl enable ssh</span><br><span class="line">sudo systemctl start ssh</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://pic2.zhimg.com/80/v2-46e7c27669cd6de13c1373e714ca407d_1440w.webp" alt="img"></p>
+<h1 id="ssh工作原理"><a href="#ssh工作原理" class="headerlink" title="ssh工作原理"></a>ssh工作原理</h1><p>SSH登录主要分为两个阶段：</p>
 <ul>
 <li>协商客户端和服务端双方通信所使用的共享密钥，并用这个共享密钥实现后续会话过程的对称加密；</li>
 <li>使用非对称加密方式验证客户端的身份。</li>
