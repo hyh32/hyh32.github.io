@@ -4,26 +4,22 @@
   <meta charset="utf-8">
   
   
-  <title>CTFHUB-SSRF-端口扫描 | Jokak_blog</title>
+  <title>htb笔记 | Jokak_blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="题目有个提示，  那就批量访问8000-9000端口呗，进入靶机，啥都没有，只有URL里有个待写参数，  那就抓包图示包然后批量访问本机端口，  给端口加上变量，然后设置范围为8000-9000，  最后按长度排序，发现8791端口长度与其他的不同，打开发现flag，">
+  <meta name="description" content="图片是个大问题，让我摸索摸索">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CTFHUB-SSRF-端口扫描">
-<meta property="og:url" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/index.html">
+<meta property="og:title" content="htb笔记">
+<meta property="og:url" content="http://example.com/2023/03/31/htb%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Jokak_blog">
-<meta property="og:description" content="题目有个提示，  那就批量访问8000-9000端口呗，进入靶机，啥都没有，只有URL里有个待写参数，  那就抓包图示包然后批量访问本机端口，  给端口加上变量，然后设置范围为8000-9000，  最后按长度排序，发现8791端口长度与其他的不同，打开发现flag，">
+<meta property="og:description" content="图片是个大问题，让我摸索摸索">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/1.png">
-<meta property="og:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/2.png">
-<meta property="og:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/3.png">
-<meta property="og:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/4.png">
-<meta property="og:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/0.png">
-<meta property="article:published_time" content="2022-10-15T03:55:22.000Z">
-<meta property="article:modified_time" content="2022-10-15T04:23:50.978Z">
+<meta property="og:image" content="http://example.com/2023/03/31/htb%E7%AC%94%E8%AE%B0/image-20230331162028872.png">
+<meta property="article:published_time" content="2023-03-31T08:18:39.000Z">
+<meta property="article:modified_time" content="2023-03-31T08:45:35.114Z">
 <meta property="article:author" content="Jokak Doe">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/1.png">
+<meta name="twitter:image" content="http://example.com/2023/03/31/htb%E7%AC%94%E8%AE%B0/image-20230331162028872.png">
   
     <link rel="alternate" href="/atom.xml" title="Jokak_blog" type="application/atom+xml">
   
@@ -80,14 +76,14 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-CTFHUB-SSRF-端口扫描" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-htb笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/" class="article-date">
-  <time class="dt-published" datetime="2022-10-15T03:55:22.000Z" itemprop="datePublished">2022-10-15</time>
+    <a href="/2023/03/31/htb%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2023-03-31T08:18:39.000Z" itemprop="datePublished">2023-03-31</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
   </div>
 
   </div>
@@ -98,7 +94,7 @@
         
   
     <h1 class="p-name article-title" itemprop="headline name">
-      CTFHUB-SSRF-端口扫描
+      htb笔记
     </h1>
   
 
@@ -106,21 +102,13 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>题目有个提示，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/1.png"></p>
-<p>那就批量访问8000-9000端口呗，进入靶机，啥都没有，只有URL里有个待写参数，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/2.png"></p>
-<p>那就抓包图示包然后批量访问本机端口，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/3.png"></p>
-<p>给端口加上变量，然后设置范围为8000-9000，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/4.png"></p>
-<p>最后按长度排序，发现8791端口长度与其他的不同，打开发现flag，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/0.png"></p>
+        <p>图片是个大问题，让我摸索摸索</p>
+<p><img src="/2023/03/31/htb%E7%AC%94%E8%AE%B0/image-20230331162028872.png" alt="image-20230331162028872"></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/15/CTFHUB-SSRF-%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F/" data-id="cl9hxo4gx000420v4foe8bks1" data-title="CTFHUB-SSRF-端口扫描" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2023/03/31/htb%E7%AC%94%E8%AE%B0/" data-id="clfwav73q0000s0v401opg16x" data-title="htb笔记" class="article-share-link">分享</a>
       
       
       
@@ -130,19 +118,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/10/16/NSSCTF-HNCTF-Week1-Challenge-rce/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          NSSCTF-HNCTF-[Week1]Challenge__rce
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/10/15/CTFHUB-SSRF-%E4%BC%AA%E5%8D%8F%E8%AE%AE%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">CTFHUB-SSRF-伪协议读取文件</div>
+      <div class="article-nav-title">ssh原理及使用</div>
     </a>
   
 </nav>
