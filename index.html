@@ -74,10 +74,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-htb笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Github搜索技巧" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2023/03/31/htb%E7%AC%94%E8%AE%B0/" class="article-date">
-  <time class="dt-published" datetime="2023-03-31T08:18:39.000Z" itemprop="datePublished">2023-03-31</time>
+    <a href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/" class="article-date">
+  <time class="dt-published" datetime="2023-04-18T11:39:22.000Z" itemprop="datePublished">2023-04-18</time>
 </a>
     
   <div class="article-category">
@@ -92,7 +92,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2023/03/31/htb%E7%AC%94%E8%AE%B0/">htb笔记</a>
+      <a class="p-name article-title" href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">Github搜索技巧</a>
     </h1>
   
 
@@ -100,13 +100,181 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>图片是个大问题，让我摸索摸索</p>
-<p><img src="/2023/03/31/htb%E7%AC%94%E8%AE%B0/image-20230331162028872.png" alt="image-20230331162028872"></p>
+        <p>近日，GitHub推出了全新的查询语法 ，类似于fofa，shodan，zoomeye这些搜索引擎</p>
+<p>官方语法如下：</p>
+<h2 id="基本搜索"><a href="#基本搜索" class="headerlink" title="基本搜索"></a><strong>基本搜索</strong></h2><table>
+<thead>
+<tr>
+<th><strong>语法例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat stars:&gt;100</td>
+<td>查找拥有100颗以上收藏的包含”猫”存储库</td>
+</tr>
+<tr>
+<td>user:defunkt</td>
+<td>获取用户defunkt的所有存储库</td>
+</tr>
+<tr>
+<td>tom location:”San Francisco, CA”</td>
+<td>查找所有位于“San Francisco, CA”的tom用户</td>
+</tr>
+<tr>
+<td>join extension:coffee</td>
+<td>查找所有在代码中使用coffee扩展的join实例</td>
+</tr>
+<tr>
+<td>NOT cat</td>
+<td>排除所有包含cat的结果</td>
+</tr>
+</tbody></table>
+<h2 id="存储库搜索"><a href="#存储库搜索" class="headerlink" title="存储库搜索"></a><strong>存储库搜索</strong></h2><p>存储库搜索会浏览在GitHub上有权访问的项目(。你也可以筛选结果</p>
+<table>
+<thead>
+<tr>
+<th><strong>语法例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>cat stars:&gt;100</td>
+<td>查找拥有100颗以上收藏的包含”猫”存储库</td>
+</tr>
+<tr>
+<td>user:defunkt</td>
+<td>获取用户defunkt的所有存储库</td>
+</tr>
+<tr>
+<td>pugs pushed:&gt;2013-01-28</td>
+<td>查找自2013年1月28日以来推送的Pugs存储库</td>
+</tr>
+<tr>
+<td>node.js forks:&lt;200</td>
+<td>查找所有拥有少于200个分支的node.js存储库</td>
+</tr>
+<tr>
+<td>jquery size:1024..4089</td>
+<td>查找大小在1024和4089kb之间的jquery存储库</td>
+</tr>
+<tr>
+<td>gitx fork:true</td>
+<td>存储库搜索包括gitx的分支</td>
+</tr>
+<tr>
+<td>gitx fork:only</td>
+<td>存储库搜索仅返回gitx的分支</td>
+</tr>
+</tbody></table>
+<h2 id="代码搜索"><a href="#代码搜索" class="headerlink" title="代码搜索"></a><strong>代码搜索</strong></h2><p>代码搜索会浏览托管在GitHub上的文件</p>
+<table>
+<thead>
+<tr>
+<th><strong>语法例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>install repo:charles&#x2F;privaterepo</td>
+<td>在charles&#x2F;privaterepo存储库中的代码中查找所有install的实例。</td>
+</tr>
+<tr>
+<td>shogun user:heroku</td>
+<td>查找所有公共heroku存储库中与shogun相关的引用</td>
+</tr>
+<tr>
+<td>join extension:coffee</td>
+<td>查找所有扩展名为coffee的代码中join的实例</td>
+</tr>
+<tr>
+<td>system size:&gt;1000</td>
+<td>查找文件大小大于1000kbs的代码中所有system的实例</td>
+</tr>
+<tr>
+<td>examples path:&#x2F;docs&#x2F;</td>
+<td>在&#x2F;docs&#x2F;路径中查找所有示例</td>
+</tr>
+<tr>
+<td>replace fork:true</td>
+<td>在分支的源代码中搜索replace</td>
+</tr>
+</tbody></table>
+<h2 id="问题搜索"><a href="#问题搜索" class="headerlink" title="问题搜索"></a><strong>问题搜索</strong></h2><p>问题搜索可以查看 GitHub 上的问题和拉取请求</p>
+<table>
+<thead>
+<tr>
+<th><strong>语法例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>encoding user:heroku</td>
+<td>Heroku组织中的encoding问题</td>
+</tr>
+<tr>
+<td>cat is:open</td>
+<td>查找cat的opne问题</td>
+</tr>
+<tr>
+<td>strange comments:&gt;42</td>
+<td>有超过 42 条评论的问题</td>
+</tr>
+<tr>
+<td>hard label:bug</td>
+<td>标记为 bug 的困难问题</td>
+</tr>
+<tr>
+<td>author:mojombo</td>
+<td>所有由 mojombo 编写的问题</td>
+</tr>
+<tr>
+<td>mentions:tpope</td>
+<td>提到 tpope 的所有问题</td>
+</tr>
+<tr>
+<td>assignee:rtomayko</td>
+<td>所有分配给 rtomayko 的问题</td>
+</tr>
+<tr>
+<td>exception created:&gt;2012-12-31</td>
+<td>自 2013 年初以来异常问题</td>
+</tr>
+<tr>
+<td>exception updated:&lt;2013-01-01</td>
+<td>在 2013 年之前的异常问题</td>
+</tr>
+</tbody></table>
+<h2 id="用户搜索"><a href="#用户搜索" class="headerlink" title="用户搜索"></a><strong>用户搜索</strong></h2><p>用户搜索是指在GitHub上查找具有账户的用户</p>
+<table>
+<thead>
+<tr>
+<th><strong>语法例子</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fullname:”凌风子虚”</td>
+<td>查找全名为”凌风子虚”的用户</td>
+</tr>
+<tr>
+<td>tom location:”San Francisco, CA”</td>
+<td>查找在”San Francisco, CA”的所有tom用户</td>
+</tr>
+<tr>
+<td>chris followers:100..200</td>
+<td>查找其粉丝数在100到200之间的所有chris用户</td>
+</tr>
+<tr>
+<td>ryan repos:&gt;10</td>
+<td>查找其仓库数量超过10个的所有ryan用户</td>
+</tr>
+</tbody></table>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2023/03/31/htb%E7%AC%94%E8%AE%B0/" data-id="clfwav73q0000s0v401opg16x" data-title="htb笔记" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/" data-id="clgm7pogp0000eov49dat4wsn" data-title="Github搜索技巧" class="article-share-link">分享</a>
       
       
       
@@ -783,7 +951,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
     </div>
   </div>
 
@@ -796,7 +964,7 @@
       <ul>
         
           <li>
-            <a href="/2023/03/31/htb%E7%AC%94%E8%AE%B0/">htb笔记</a>
+            <a href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">Github搜索技巧</a>
           </li>
         
           <li>
