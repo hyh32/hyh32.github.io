@@ -175,9 +175,9 @@
 <p>将服务器ip 192.168.184.33  及域名 <code>www.honglian7001.com</code>添加到hosts文件中，</p>
 <p><img src="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/image-20230428183835985.png"></p>
 <p>要重构网站，查看服务器历史命令必不可少，从历史命令中看到以下比较重要的命令，依次执行</p>
-<p>  <code>systemctl stop nginx</code> </p>
-<p><code>vi /www/wwwroot/www.honglian7001.com/app/database.php </code>   然后将其中的<strong>hostname</strong>更改为服务器ip地址</p>
-<p><code>systemctl stop firewalld</code></p>
+<p>  <strong><code>systemctl stop nginx</code></strong> </p>
+<p><strong><code>vi /www/wwwroot/www.honglian7001.com/app/database.php </code>   然后将其中的hostname更改为服务器ip地址</strong></p>
+<p><strong><code>systemctl stop firewalld</code></strong></p>
 <p>重新访问  <code>www.honglian7001.com</code>  发现已经跟之前不一样了，</p>
 <p><img src="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/image-20230429000657566.png"></p>
 <p>查看网站目录结构，访问<code>www.honglian7001.com/admin</code> ，进入到后台登录页面，但是我们不知道登录的账号密码</p>
