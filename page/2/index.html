@@ -74,58 +74,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-CTFHUB-RCE-文件包含" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="article-date">
-  <time class="dt-published" datetime="2022-10-15T01:44:50.000Z" itemprop="datePublished">2022-10-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">CTFHUB-RCE-文件包含</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>进入靶机，发现几行代码，</p>
-<p><img src="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/0.png"></p>
-<p>有文件包含代码，有一个字符flag过滤，根据下面的shell提示，点进去，</p>
-<p><img src="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/1.png"></p>
-<p>发现是一个php一句话木马，连接密码是ctfhub，在文件shell.txt里，这时就要想到应该用蚁剑连接了，现用GET方法传file&#x3D;shell.txt，</p>
-<p><img src="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/2.png"></p>
-<p>文件包含成功，打开蚁剑，添加网站URL，</p>
-<p><img src="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/3.png"></p>
-<p>连接成功后，在根目录下找到了flag，</p>
-<p><img src="/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/4.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/15/CTFHUB-RCE-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" data-id="cl9hxo4gp000020v4cad53qob" data-title="CTFHUB-RCE-文件包含" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
     <article id="post-CTFHUB-XSS-反射型" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/14/CTFHUB-XSS-%E5%8F%8D%E5%B0%84%E5%9E%8B/" class="article-date">
@@ -603,6 +551,54 @@
 
 
   
+    <article id="post-CTFHUB-信息泄露-备份文件下载-网站源码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T08:42:01.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/">CTFHUB-信息泄露-备份文件下载-网站源码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>进入页面，发现网站源码文件的相关提示，由于组合较少，可以直接手动组合验证文件是否存在（组合多的话还是使用bp爆破验证）</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/1.png" alt="1"></p>
+<p>最后访问<a target="_blank" rel="noopener" href="http://www.zip/">www.zip</a>, 下载了一个压缩包文件，解压打开发现含有flag的一个txt文件，</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/2.png"></p>
+<p>但是打开发现没有flag，想到这题是源码泄露，那么该txt文件应该存在于网站服务器上，试着在网站上访问该txt文件，发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/3.png" alt="3"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-%E7%BD%91%E7%AB%99%E6%BA%90%E7%A0%81/" data-id="cl9hxo4hb000g20v4dvs3481c" data-title="CTFHUB-信息泄露-备份文件下载-网站源码" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
 
 
   <nav id="page-nav">
@@ -618,7 +614,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li></ul>
     </div>
   </div>
 
@@ -646,10 +642,6 @@
       <ul>
         
           <li>
-            <a href="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/">长安杯！宝塔取证writeup</a>
-          </li>
-        
-          <li>
             <a href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">Github搜索技巧</a>
           </li>
         
@@ -663,6 +655,10 @@
         
           <li>
             <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，引发对反序列具体详细过程以及对__construct，__destruct函数执行情况深度分析</a>
+          </li>
+        
+          <li>
+            <a href="/2022/10/19/NSWSTAR-week2-UnserializeOne/">NSWSTAR-week2-UnserializeOne</a>
           </li>
         
       </ul>
