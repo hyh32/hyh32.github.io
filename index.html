@@ -74,6 +74,289 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-LiteCTF2023-writeup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/05/15/LiteCTF2023-writeup/" class="article-date">
+  <time class="dt-published" datetime="2023-05-15T14:33:46.000Z" itemprop="datePublished">2023-05-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-writeup/">CTF_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2023/05/15/LiteCTF2023-writeup/">LiteCTF2023_writeup</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="郑轻小队writeup"><a href="#郑轻小队writeup" class="headerlink" title="郑轻小队writeup"></a>郑轻小队writeup</h1><h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="我Flag呢？"><a href="#我Flag呢？" class="headerlink" title="我Flag呢？"></a>我Flag呢？</h2><p>直接查看源码，在源码最下面找到flag</p>
+<h3 id="彩蛋1"><a href="#彩蛋1" class="headerlink" title="彩蛋1"></a>彩蛋1</h3><p>然后在<img src="/2023/05/15/LiteCTF2023-writeup/clip_image002.gif" alt="img">这个js代码中，找到彩蛋1 LitCTF{First_t0_The_k3y! (1&#x2F;?)</p>
+<h2 id="导弹迷踪"><a href="#导弹迷踪" class="headerlink" title="导弹迷踪"></a>导弹迷踪</h2><p>直接查看源码，最后在game.js文件中发现flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image004.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image006.gif" alt="img"></p>
+<h2 id="Follow-me-and-hack-me"><a href="#Follow-me-and-hack-me" class="headerlink" title="Follow me and hack me"></a>Follow me and hack me</h2><p>根据提示，用get和post各传一个参数，提交拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image008.gif" alt="img"></p>
+<h3 id="彩蛋3"><a href="#彩蛋3" class="headerlink" title="彩蛋3"></a>彩蛋3</h3><p>根据提示 备份文件还有好吃的，dirsearch扫描网站，发现备份文件<a target="_blank" rel="noopener" href="http://www.zip,/">www.zip，</a></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image010.gif" alt="img"></p>
+<p>下载解压在 index.php.bak ，文件中发现彩蛋3</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image012.gif" alt="img"></p>
+<h2 id="Ping（被判作弊）"><a href="#Ping（被判作弊）" class="headerlink" title="Ping（被判作弊）"></a>Ping（被判作弊）</h2><p>ping下并尝试执行whoami，发现有前端限制，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image014.gif" alt="img"></p>
+<p>禁用js后，命令可以正常执行，并在根目录下发现了flag文件</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image016.gif" alt="img"></p>
+<p>ping 127.0.0.1 || cat &#x2F;flag，拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image018.gif" alt="img"></p>
+<h2 id="Vim-yyds"><a href="#Vim-yyds" class="headerlink" title="Vim yyds"></a>Vim yyds</h2><p>dirsearch扫描网站，发现index.php.swp文件，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image020.gif" alt="img"></p>
+<p>下载打开发现一些明文后端代码</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image022.gif" alt="img"></p>
+<p>将 $password的值 Give_Me_Your_Flag base64加密后的密文以post请求发送，同时发送cmd，payload如下</p>
+<p>password&#x3D;R2l2ZV9NZV9Zb3VyX0ZsYWc&#x3D;&amp;&amp;cmd&#x3D;cat &#x2F;flag</p>
+<p>如下图所示，拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image024.gif" alt="img"></p>
+<h2 id="PHP是世界上最好的语言！！"><a href="#PHP是世界上最好的语言！！" class="headerlink" title="PHP是世界上最好的语言！！"></a>PHP是世界上最好的语言！！</h2><p>发现是个代码执行框，先放段简单php脚本，发现可以执行，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image026.gif" alt="img"></p>
+<p>那就好办了，直接cat flag，拿下</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image028.gif" alt="img"></p>
+<h2 id="作业管理系统（被判作弊）"><a href="#作业管理系统（被判作弊）" class="headerlink" title="作业管理系统（被判作弊）"></a>作业管理系统（被判作弊）</h2><p>是一个登录框，弱口令爆破得到账号密码为 admin:admin</p>
+<p>登录进去后是一个作业管理系统，发现有个上传文件还有创建文件的地方。创建个aa.php文件，内容为一句话木马，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image030.gif" alt="img"></p>
+<p><a target="_blank" rel="noopener" href="http://node4.anna.nssctf.cn:28357/aa.php">http://node4.anna.nssctf.cn:28357/aa.php</a> 直接访问aa.php，发现可用访问，直接用蚁剑连接，最后在根目录下找到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image032.gif" alt="img"></p>
+<h3 id="彩蛋2"><a href="#彩蛋2" class="headerlink" title="彩蛋2"></a>彩蛋2</h3><p>登录到管理系统后，发现一个githubURL，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image034.gif" alt="img"></p>
+<p>查看得到彩蛋2</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image036.gif" alt="img"></p>
+<h2 id="彩蛋"><a href="#彩蛋" class="headerlink" title="彩蛋"></a>彩蛋</h2><p>根据前面得到的彩蛋，拼接得到flag</p>
+<p>LitCTF{First_t0_The_k3y!_S0_ne3t?_R3ady_Pl4yer_000ne_F1rst_to_Th3_eggggggggg!}</p>
+<h2 id="就当无事发生"><a href="#就当无事发生" class="headerlink" title="就当无事发生"></a>就当无事发生</h2><p>一开始没做出来，后来探姬给了提示 Github commit</p>
+<p> 想起去探姬github里找找，我github也正好follow了探姬</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image038.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image040.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image042.gif" alt="img"></p>
+<h2 id="1zjs"><a href="#1zjs" class="headerlink" title="1zjs"></a>1zjs</h2><p>查看网站源码，发现一个js文件</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image044.gif" alt="img"></p>
+<p>在js文件中发现可疑php文件</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image046.gif" alt="img"></p>
+<p>访问该文件，发现是个fuck代码，但是不知道是什么程序类型的代码。那就一个一个尝试呗，最终试出它是jsfuck代码，直接在控制台运行该fuck代码，拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image048.gif" alt="img"></p>
+<h2 id="这是什么？SQL-！注一下-！"><a href="#这是什么？SQL-！注一下-！" class="headerlink" title="这是什么？SQL ！注一下 ！"></a>这是什么？SQL ！注一下 ！</h2><p>输入1回车，发现使用get请求，参数为id，值为输入框中输入的。而且sql语句都给出来了，看起来挺简单，直接sqlmap跑，发现存在时间盲注</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image050.gif" alt="img"></p>
+<p>经过sqlmap跑，得到数据库，表。最后直接dump跑出flag</p>
+<p>python sqlmap.py -u “<a target="_blank" rel="noopener" href="http://invalid.uri/">http://node1.anna.nssctf.cn:28548/?id=1"</a> -p id -D ctftraining -T flag –dump</p>
+<p>跑一下payload，得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image052.gif" alt="img"></p>
+<h3 id="彩蛋4"><a href="#彩蛋4" class="headerlink" title="彩蛋4"></a>彩蛋4</h3><p>输入2得到彩蛋4</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image054.gif" alt="img"></p>
+<h2 id="Flag点击就送！"><a href="#Flag点击就送！" class="headerlink" title="Flag点击就送！"></a>Flag点击就送！</h2><p>开始是个输入框，随便输入，进入到拿flag界面，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image056.gif" alt="img"></p>
+<p>拿flag，但是提醒我不是管理员，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image058.gif" alt="img"></p>
+<p>抓包查看流量包，发现session有蹊跷，像是flask session</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image060.gif" alt="img"></p>
+<p>使用网上现成的flask session解密脚本尝试一下，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image062.gif" alt="img"></p>
+<p>解密成功，那么这个就确定该session就是flask框架中使用的session了</p>
+<p>将明文更改为admin形似 {“name”:”admin”} </p>
+<p>然后利用该脚本对明文进行加密，得到加密session，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image064.gif" alt="img"></p>
+<p>去抓的包中替换掉该session，发送即得flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image066.gif" alt="img"></p>
+<h2 id="Http-pro-max-plus"><a href="#Http-pro-max-plus" class="headerlink" title="Http pro max plus"></a>Http pro max plus</h2><p>根据提示加http头</p>
+<p>其中的xff不可用，需要使用Client-ip替换下xff</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image068.gif" alt="img"></p>
+<p>发送得到新信息，是一个PHP文件</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image070.gif" alt="img"></p>
+<p>访问该文件，发现是个 昂…….p站？？？？</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image072.gif" alt="img"></p>
+<p>感觉不读，查看源码，又得到了新信息，也是个php文件</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image074.gif" alt="img"></p>
+<p>访问就拿到了flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image076.gif" alt="img"></p>
+<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="只需要nc一下"><a href="#只需要nc一下" class="headerlink" title="只需要nc一下~"></a>只需要nc一下~</h2><p>nc连接，查看docker配置文件内容，根据历史命令输入 echo $FLAG，出flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image078.gif" alt="img"></p>
+<h2 id="口算题卡"><a href="#口算题卡" class="headerlink" title="口算题卡"></a>口算题卡</h2><p>也是nc连接，然后就慢慢算小学数学题，算100道flag就出来了，一个体力活。</p>
+<h1 id="REVERSE"><a href="#REVERSE" class="headerlink" title="REVERSE"></a>REVERSE</h1><h2 id="世界上最棒的程序员"><a href="#世界上最棒的程序员" class="headerlink" title="世界上最棒的程序员"></a>世界上最棒的程序员</h2><p>把附件导入ida中，搜索关键字 flag 得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image080.gif" alt="img"></p>
+<h2 id="ez-XOR"><a href="#ez-XOR" class="headerlink" title="ez_XOR"></a>ez_XOR</h2><p>把附件导入IDA pro，直接寻找main函数</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image082.gif" alt="img"></p>
+<p>找到关键代码</p>
+<p>int __cdecl main(int argc, const char **argv, const char **envp)<br> {<br>  char *Format; &#x2F;&#x2F; [esp+0h] [ebp-80h]<br>  char *Str2; &#x2F;&#x2F; [esp+4h] [ebp-7Ch]<br>  const char **v6; &#x2F;&#x2F; [esp+8h] [ebp-78h]<br>  char Str1[50]; &#x2F;&#x2F; [esp+1Ch] [ebp-64h] BYREF<br>  _WORD v8[14]; &#x2F;&#x2F; [esp+4Eh] [ebp-32h] BYREF<br>  int v9; &#x2F;&#x2F; [esp+6Ah] [ebp-16h]<br>  int v10; &#x2F;&#x2F; [esp+6Eh] [ebp-12h]<br>  int v11; &#x2F;&#x2F; [esp+72h] [ebp-Eh]<br>  int v12; &#x2F;&#x2F; [esp+76h] [ebp-Ah]<br>  int v13; &#x2F;&#x2F; [esp+7Ah] [ebp-6h]<br>  __int16 v14; &#x2F;&#x2F; [esp+7Eh] [ebp-2h]</p>
+<p>  __main();<br>  strcpy((char *)v8, “E<code>&#125;J]OrQF[V8zV:hzpV&#125;fVF[t&quot;);   v8[13] = 0;   v9 = 0;   v10 = 0;   v11 = 0;   v12 = 0;   v13 = 0;   v14 = 0;   printf(&quot;Enter The Right FLAG:&quot;);   scanf(&quot;%s&quot;, Str1);   XOR(Str1, 3);   if ( !strcmp(Str1, (const char *)v8) )   &#123;    printf(&quot;U Saved IT!\n&quot;);    return 0;   &#125;   else   &#123;    printf(&quot;Wrong!Try again!\n&quot;);    return main((int)Format, (const char **)Str2, v6);   &#125;  &#125;  对代码进行分析发现是将值E</code>}J]OrQF[V8zV:hzpV}fVF[t给了v8，分析关键的异或函数，双击进入XOR(Str1, 3);<br> size_t __cdecl XOR(char *Str, int a2)<br> {<br>  size_t result; &#x2F;&#x2F; eax<br>  unsigned int i; &#x2F;&#x2F; [esp+2Ch] [ebp-Ch]</p>
+<p>  for ( i &#x3D; 0; ; ++i )<br>  {<br>   result &#x3D; strlen(Str);<br>   if ( i &gt;&#x3D; result )<br>    break;<br>   Str[i] ^&#x3D; 3 * a2; &#x2F;&#x2F;异或的规则<br>  }<br>  return result;<br> }</p>
+<p>根据代码，用chatgpt写下脚本，</p>
+<p>a &#x3D; “E}J]OrQF[V8zV:hzpV}fVF[t”<br> b &#x3D; “”<br> for c in a:<br>   b +&#x3D; chr(ord(c) ^ 9)<br>   print(b)</p>
+<p>跑一下flag就出来了<strong>，</strong></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image084.gif" alt="img"></p>
+<h2 id="snake"><a href="#snake" class="headerlink" title="snake"></a>snake</h2><p>附件是个pyc文件，使用 uncompyle6 对pyc进行反编译，但是报错，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image086.gif" alt="img"></p>
+<p>google后明白了原因：是因为pyc文件的文件头magic number没有对上，需要加上magic number，并且不同python版本的magic number也不同。</p>
+<p>如何寻找pyc的magic number以及如何添加magic number，</p>
+<p>参考这篇文章 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44808585/article/details/104148402">https://blog.csdn.net/qq_44808585/article/details/104148402</a></p>
+<p>根据文章方法查看到该python版本的magic number，然后使用winhex添加上magic number反编译成功。在代码中找到有关flag的那段程序，运行后得到flag</p>
+<p>flag &#x3D; [<br>   30, 196,<br>   52, 252, 49, 220, 7, 243,<br>   3, 241, 24, 224, 40, 230,<br>   25, 251, 28, 233, 40, 237,<br>   4, 225, 4, 215, 40, 231,<br>   22, 237, 14, 251, 10, 169]<br> for i in range(0, len(flag), 2):<br>   flag[i], flag[i + 1] &#x3D; flag[i + 1] ^ 136, flag[i] ^ 119<br> print(bytes(flag).decode())</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image088.gif" alt="img"></p>
+<h2 id="debase64"><a href="#debase64" class="headerlink" title="debase64"></a>debase64</h2><p>下载附件，先用ida打开看下，能看到输入20个字符到v15，在sub_401520函数将v15转换到了v4，再拿v4和v6-v14的每个字节进行比较。根据题目和进入sub_401520也可以基本确定sub_401520是个解base64的函数。</p>
+<p>之后进入动态调试，步过sub_401520的时候发现这不是普通的base64。动态分析后能发现，原理是把base64解密顺序反过来了，用第四个字符左移两位，第三个字符右移四位这样。故只需写个加密脚本，手动把顺序倒过来就好。因为flag后有3个“&#x3D;”，最后一位根据hint爆破即可。</p>
+<p>import hashlib</p>
+<p> key &#x3D; “ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+&#x2F;“</p>
+<p> for i in key:<br>   str1 &#x3D; f”Y0uReallyKn0wB4s{i}&#x3D;&#x3D;&#x3D;”<br>   if hashlib.md5(str1.encode()).hexdigest() &#x3D;&#x3D; “5a3ebb487ad0046e52db00570339aace”:<br>     print(str1)<br>     break</p>
+<p>运行下，拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image090.gif" alt="img"></p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="Hex？Hex！-初级"><a href="#Hex？Hex！-初级" class="headerlink" title="Hex？Hex！(初级)"></a>Hex？Hex！(初级)</h2><p>丢到一键解码工具里</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image092.gif" alt="img"></p>
+<h2 id="梦想是红色的-初级"><a href="#梦想是红色的-初级" class="headerlink" title="梦想是红色的 (初级)"></a>梦想是红色的 (初级)</h2><p>一看就是社会主义核心价值观编码，找个在线解码网站，直接拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image094.gif" alt="img"></p>
+<h2 id="原来你也玩原神-初级"><a href="#原来你也玩原神-初级" class="headerlink" title="原来你也玩原神 (初级)"></a>原来你也玩原神 (初级)</h2><p>根据题目提示，这密文是原神里的东西，google找到原神中的文字为提瓦特字，并找到对应图</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image096.gif" alt="img"></p>
+<p>一个一个比对得到flag</p>
+<h2 id="你是我的关键词-Keyworld-初级"><a href="#你是我的关键词-Keyworld-初级" class="headerlink" title="你是我的关键词(Keyworld) (初级)"></a>你是我的关键词(Keyworld) (初级)</h2><p>搜索在线 关键字解密 </p>
+<p>据题目描述推测密钥，最后得出秘钥为YOU，解密得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image098.gif" alt="img"></p>
+<h2 id="家人们！谁懂啊，RSA签到都不会-初级"><a href="#家人们！谁懂啊，RSA签到都不会-初级" class="headerlink" title="家人们！谁懂啊，RSA签到都不会 (初级)"></a>家人们！谁懂啊，RSA签到都不会 (初级)</h2><p>简单的rsa解密，去网上找个别人写好的脚本，</p>
+<p>from Crypto.Util.number import *<br> import gmpy2<br> p &#x3D; 12567387145159119014524309071236701639759988903138784984758783651292440613056150667165602473478042486784826835732833001151645545259394365039352263846276073<br> q &#x3D; 12716692565364681652614824033831497167911028027478195947187437474380470205859949692107216740030921664273595734808349540612759651241456765149114895216695451<br> c &#x3D; 108691165922055382844520116328228845767222921196922506468663428855093343772017986225285637996980678749662049989519029385165514816621011058462841314243727826941569954125384522233795629521155389745713798246071907492365062512521474965012924607857440577856404307124237116387085337087671914959900909379028727767057<br> e &#x3D; 65537<br> n &#x3D; p<em>q<br> print(long_to_bytes(pow(c,(gmpy2.invert(e,(p-1)</em>(q-1))),n)))</p>
+<p>跑一下，得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image100.gif" alt="img"></p>
+<h2 id="factordb-中级"><a href="#factordb-中级" class="headerlink" title="factordb (中级)"></a>factordb (中级)</h2><p>把代码丢给ai分析一下，</p>
+<p>n &#x3D; 87924348264132406875276140514499937145050893665602592992418171647042491658461</p>
+<p>得出需要分解一下n，</p>
+<p>google找到在线分解数字网站<a target="_blank" rel="noopener" href="http://factordb.com/">http://factordb.com/</a> ，分解n得到两个数</p>
+<p>275127860351348928173285174381581152299<br> 319576316814478949870590164193048041239</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image102.gif" alt="img"></p>
+<p>然后就去网上找个现成脚本，一开始不能用，但是丢给ai，问几遍就可以正确运行了</p>
+<p>from Crypto.Util.number import long_to_bytes</p>
+<p> e &#x3D; 65537<br> n &#x3D; 87924348264132406875276140514499937145050893665602592992418171647042491658461<br> c &#x3D; 87677652386897749300638591365341016390128692783949277305987828177045932576708<br> p1 &#x3D; 275127860351348928173285174381581152299<br> p2 &#x3D; 319576316814478949870590164193048041239<br> phi &#x3D; (p1 - 1) * (p2 - 1)<br> d &#x3D; pow(e, -1, phi)<br> m &#x3D; pow(c, d, n)<br> print(long_to_bytes(m))</p>
+<p>运行得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image104.gif" alt="img"></p>
+<h2 id="yafu-中级"><a href="#yafu-中级" class="headerlink" title="yafu (中级)"></a>yafu (中级)</h2><p>下载附件发现了</p>
+<p>from Crypto.Util.number import *<br> from secret import flag</p>
+<p> m &#x3D; bytes_to_long(flag)<br> n &#x3D; 1<br> for i in range(15):<br>   n *&#x3D;getPrime(32)<br> e &#x3D; 65537<br> c &#x3D; pow(m,e,n)<br> print(f’n &#x3D; {n}’)<br> print(f’c &#x3D; {c}’)</p>
+<p>又是分解n，找打个yafu工具分解n，</p>
+<p><a target="_blank" rel="noopener" href="https://onboardcloud.dl.sourceforge.net/project/yafu/1.34/yafu-1.34.zip">https://onboardcloud.dl.sourceforge.net/project/yafu/1.34/yafu-1.34.zip</a></p>
+<p>在文件夹下输入cmd可进行使用，运行命令</p>
+<p>.\yafu-x64 factor(15241208217768849887180010139590210767831431018204645415681695749294131435566140166245881287131522331092026252879324931622292179726764214435307)</p>
+<p>可得到15个数</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image106.jpg" alt="img"></p>
+<p>分别为</p>
+<p>P10 &#x3D; 2201440207</p>
+<p>P10 &#x3D; 3354884521</p>
+<p>P10 &#x3D; 4171911923</p>
+<p>P10 &#x3D; 2719600579</p>
+<p>P10 &#x3D; 4044505687</p>
+<p>P10 &#x3D; 2758708999</p>
+<p>P10 &#x3D; 2767137487</p>
+<p>P10 &#x3D; 2585574697</p>
+<p>P10 &#x3D; 2906576131</p>
+<p>P10 &#x3D; 2315495107</p>
+<p>P10 &#x3D; 3355651511</p>
+<p>P10 &#x3D; 3989697563</p>
+<p>P10 &#x3D; 4021078331</p>
+<p>P10 &#x3D; 2151018733</p>
+<p>P10 &#x3D; 2923522073</p>
+<p>接着使用网上的脚本进行修改计算可得，可能与其他队伍脚本相似，我们是在csdn找的脚本</p>
+<p>import gmpy2<br> from Crypto.Util.number import long_to_bytes</p>
+<p> n &#x3D; 15241208217768849887180010139590210767831431018204645415681695749294131435566140166245881287131522331092026252879324931622292179726764214435307<br> e &#x3D; 65537<br> c &#x3D; 12608550100856399369399391849907846147170257754920996952259023159548789970041433744454761458030776176806265496305629236559551086998780836655717<br> p1 &#x3D; 2201440207<br> p2 &#x3D; 3354884521<br> p3 &#x3D; 2719600579<br> p4 &#x3D; 4171911923<br> p5 &#x3D; 2315495107<br> p6 &#x3D; 2758708999<br> p7 &#x3D; 3989697563<br> p8 &#x3D; 2923522073<br> p9 &#x3D; 2151018733<br> p10 &#x3D; 3355651511<br> p11 &#x3D; 2906576131<br> p12 &#x3D; 4044505687<br> p13 &#x3D; 4021078331<br> p14 &#x3D; 2585574697<br> p15 &#x3D; 2767137487<br> phi &#x3D; (p1 - 1) * (p2 - 1) * (p3 - 1)* (p4 - 1) * (p5 - 1)* (p6 - 1) * (p7 - 1)* (p8 - 1) * (p9 - 1)* (p10 - 1) * (p11 - 1)* (p12 - 1) * (p13 - 1)* (p14 - 1) * (p15 - 1)<br> d &#x3D; gmpy2.invert(e, phi)<br> m &#x3D; pow(c, d, n)<br> print (long_to_bytes(m))</p>
+<p>运行结果为</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image108.jpg" alt="img"></p>
+<h2 id="The-same-common-divisor-高级"><a href="#The-same-common-divisor-高级" class="headerlink" title="The same common divisor (高级)"></a>The same common divisor (高级)</h2><p>题目给了n1,n3,c1,c2,e，根据代码中n1、n2、n3的运算规则，首先求出n2</p>
+<p>google找到其他师傅现成的脚本。跑一下，拿到flag</p>
+<p>n1&#x3D; 9852079772293301283705208653824307027320071498525390578148444258198605733768947108049676831872672654449631852459503049139275329796717506126689710613873813880735666507857022786447784753088176997374711523987152412069255685005264853118880922539048290400078105858759506186417678959028622484823376958194324034590514104266608644398160457382895380141070373685334979803658172378382884352616985632157233900719194944197689860219335238499593658894630966428723660931647038577670614850305719449893199713589368780231046895222526070730152875112477675102652862254926169713030701937231206405968412044029177246460558028793385980934233<br> n3&#x3D; 4940268030889181135441311597961813780480775970170156650560367030148383674257975796516865571557828263935532335958510269356443566533284856608454193676600884849913964971291145182724888816164723930966472329604608512023988191536173112847915884014445539739070437180314205284883149421228744714989392788108329929896637182055266508625177260492776962915873036873839946591259443753924970795669864031580632650140641456386202636466624658715315856453572441182758855085077441336516178544978457053552156714181607801760605521338788424464551796638531143900048375037218585999440622490119344971822707261432953755569507740550277088437182<br> c1&#x3D; 7066425618980522033304943700150361912772559890076173881522840300333719222157667104461410726444725540513601550570478331917063911791020088865705346188662290524599499769112250751103647749860198318955619903728724860941709527724500004142950768744200491448875522031555564384426372047270359602780292587644737898593450148108629904854675417943165292922990980758572264063039172969633878015560735737699147707712154627358077477591293746136250207139049702201052305840453700782016480965369600667516646007546442708862429431724013679189842300429421340122052682391471347471758814138218632022564279296594279507382548264409296929401260<br> c2&#x3D; 854668035897095127498890630660344701894030345838998465420605524714323454298819946231147930930739944351187708040037822108105697983018529921300277486094149269105712677374751164879455815185393395371001495146490416978221501351569800028842842393448555836910486037183218754013655794027528039329299851644787006463456162952383099752894635657833907958930587328480492546831654755627949756658554724024525108575961076341962292900510328611128404001877137799465932130220386963518903892403159969133882215092783063943679288192557384595152566356483424061922742307738886179947575613661171671781544283180451958232826666741028590085269<br> n2 &#x3D; n1^n3<br> e &#x3D; 65537<br> # 正确 The same common divisor (高级)<br> import gmpy2<br> import binascii<br> p &#x3D; gmpy2.gcd(n1,n2)<br> q &#x3D; n1 &#x2F;&#x2F; p #不论是用n1还是n2整除p得到的q，最后得到的都是同一个明文m<br> phi &#x3D; (p-1)*(q-1)<br> d &#x3D; gmpy2.invert(e,phi)<br> m &#x3D; gmpy2.powmod(c1,d,n1)<br> print(binascii.unhexlify(hex(m)[2:]))</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image110.gif" alt="img"></p>
+<h2 id="Small-amp-amp-SEEM和探姬的游戏-amp-amp-Prime"><a href="#Small-amp-amp-SEEM和探姬的游戏-amp-amp-Prime" class="headerlink" title="Small &amp;&amp; SEEM和探姬的游戏 &amp;&amp; Prime"></a>Small &amp;&amp; SEEM和探姬的游戏 &amp;&amp; Prime</h2><p>这几个直接用ai跑下代码，直接提交就行了，不管对错咋样，都是99分，能薅就薅</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="【Minecraft】玩的开心～～～"><a href="#【Minecraft】玩的开心～～～" class="headerlink" title="【Minecraft】玩的开心～～～"></a>【Minecraft】玩的开心～～～</h2><p>就进入mc服务器，一直玩，挖个钻石交换书本，flag就在书本里</p>
+<h2 id="签到！-初级"><a href="#签到！-初级" class="headerlink" title="签到！(初级)"></a>签到！(初级)</h2><p>关注长亭珂兰寺公众号，发送签到即可获取flag。</p>
+<h2 id="What-1s-BASE-初级"><a href="#What-1s-BASE-初级" class="headerlink" title="What_1s_BASE (初级)"></a>What_1s_BASE (初级)</h2><p>base64解码得flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image112.gif" alt="img"></p>
+<h2 id="OSINT-探姬去哪了-0"><a href="#OSINT-探姬去哪了-0" class="headerlink" title="OSINT 探姬去哪了?_0"></a>OSINT 探姬去哪了?_0</h2><p>查看图片的全部信息发现图片拍摄地点的经纬度 ，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image114.gif" alt="img"></p>
+<p>先通过度分秒转度工具将度数转换为度数，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image116.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image118.gif" alt="img"></p>
+<p>纬度：30.788508333333333</p>
+<p>经度：120.73805555555556</p>
+<p>然后去在线根据经纬度定位网站查询这个地点具体是什么，发现是 浙江省嘉兴市南湖区城北路728号</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image120.gif" alt="img"></p>
+<p>搜索该地点附近的电信公司，发现了中国电信大厦</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image122.gif" alt="img"></p>
+<p>flag就为 NSSCTF{中国电信大厦}</p>
+<h2 id="OSINT-探姬去哪了-1"><a href="#OSINT-探姬去哪了-1" class="headerlink" title="OSINT 探姬去哪了?_1"></a>OSINT 探姬去哪了?_1</h2><p>发现图片上有hacker&amp;cratf，使用百度进行搜这个关键字，发现一个酒吧</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image124.gif" alt="img"></p>
+<p>则flag就是NSSCTF{黑客与精酿}</p>
+<h2 id="OSINT-探姬去哪了-2"><a href="#OSINT-探姬去哪了-2" class="headerlink" title="OSINT 探姬去哪了?_2"></a>OSINT 探姬去哪了?_2</h2><p>hacking club举办地点，在群里发的hacking club通知得到举办地点 </p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzkxMzE4MTc5Ng==&amp;mid=2247495412&amp;idx=1&amp;sn=2cd1f13682b8667ac0352702648e220c&amp;chksm=c10333fff674bae9b62c91ac1fb049673a8761eddf20e32b20063a69b4b79537fb26394b889c&amp;mpshare=1&amp;scene=23&amp;srcid=0425u5AogxmMXz0LAraEKN0P&amp;sharer_sharetime=1682411717881&amp;sharer_shareid=f54637fbc713483f572d8b427e564fe2#rd">https://mp.weixin.qq.com/s?__biz=MzkxMzE4MTc5Ng==&amp;mid=2247495412&amp;idx=1&amp;sn=2cd1f13682b8667ac0352702648e220c&amp;chksm=c10333fff674bae9b62c91ac1fb049673a8761eddf20e32b20063a69b4b79537fb26394b889c&amp;mpshare=1&amp;scene=23&amp;srcid=0425u5AogxmMXz0LAraEKN0P&amp;sharer_sharetime=1682411717881&amp;sharer_shareid=f54637fbc713483f572d8b427e564fe2#rd</a></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image126.gif" alt="img"></p>
+<h2 id="OSINT-探姬去哪了-3"><a href="#OSINT-探姬去哪了-3" class="headerlink" title="OSINT 探姬去哪了?_3"></a>OSINT 探姬去哪了?_3</h2><p>一看就是教学楼教室的门，作为探姬姬的同班同学，我直接作弊查看课表确认(￣y▽,￣)╭ </p>
+<h2 id="404notfound-初级"><a href="#404notfound-初级" class="headerlink" title="404notfound (初级)"></a>404notfound (初级)</h2><p>丢到010里，直接搜索关键字得到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image128.gif" alt="img"></p>
+<h2 id="OSINT-这是什么地方？！"><a href="#OSINT-这是什么地方？！" class="headerlink" title="OSINT 这是什么地方？！"></a>OSINT 这是什么地方？！</h2><p>百度搜图得到关键信息，最多的就是 这条路上的车没人敢插队，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image130.gif" alt="img"></p>
+<p>google搜索，发现一个b站视频里直接说出来了答案</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image132.gif" alt="img"></p>
+<h2 id="Osint小麦果汁"><a href="#Osint小麦果汁" class="headerlink" title="Osint小麦果汁"></a>Osint小麦果汁</h2><p>发现图片关键信息 hacker &amp; craft，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image134.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image136.gif" alt="img"></p>
+<p>百度搜索，发现是个浙江的酒吧，试了下，得到flag NSSCTF{黑客与精酿}</p>
+<h2 id="Take-me-hand-初级"><a href="#Take-me-hand-初级" class="headerlink" title="Take me hand (初级)"></a>Take me hand (初级)</h2><p>附件是个流量包，直接搜索关键字 LitCTF，看到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image138.gif" alt="img"></p>
+<h2 id="这羽毛球怎么只有一半啊（恼-初级"><a href="#这羽毛球怎么只有一半啊（恼-初级" class="headerlink" title="这羽毛球怎么只有一半啊（恼 (初级)"></a>这羽毛球怎么只有一半啊（恼 (初级)</h2><p>直接用曾哥的暴力破解png图片长宽工具一把梭哈，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image140.gif" alt="img"></p>
+<p>拿到flag</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image142.gif" alt="img"></p>
+<h2 id="喜欢我的压缩包么-初级"><a href="#喜欢我的压缩包么-初级" class="headerlink" title="喜欢我的压缩包么 (初级)"></a>喜欢我的压缩包么 (初级)</h2><p>解压附件，发现有密码，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image144.gif" alt="img"></p>
+<p>直接暴力破解，得到密码为 114514</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image146.gif" alt="img"></p>
+<p>解压得到flag，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image148.gif" alt="img"></p>
+<h2 id="破损的图片-初级"><a href="#破损的图片-初级" class="headerlink" title="破损的图片(初级)"></a>破损的图片(初级)</h2><p>使用010查看附件，通过前面的字节格式发现附件像是个png图片，但是前8个字节跟png图片的前8字节不太一样，百度搜下png图片格式</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image150.gif" alt="img"></p>
+<p>将附件前8字节更改后，再把附件后缀改为png，就能看到flag了</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image152.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image154.gif" alt="img"></p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image156.gif" alt="img"></p>
+<h2 id="两仪生四象-中级"><a href="#两仪生四象-中级" class="headerlink" title="两仪生四象 (中级)"></a>两仪生四象 (中级)</h2><p>先将代码喂给chat，chat理解后询问它如何通过输入encoded_text输出text</p>
+<p>chat给出代码</p>
+<p>_hash &#x3D; {“乾”: “111”, “兑”: “011”, “离”: “101”, “震”: “001”, “巽”: “110”, “坎”: “010”, “艮”: “100”, “坤”: “000”}</p>
+<p> text &#x3D; “坤乾兑艮兑坎坤坤巽震坤巽震艮兑坎坤震兑乾坤巽坤艮兑震巽坤巽艮坤巽艮艮兑兑艮震兑乾坤乾坤坤兑艮艮坤巽坤坤巽坎坤兑离坎震艮兑坤巽坎艮兑震坤震兑乾坤乾坎坤兑坎坤震艮离坤离乾艮震艮巽震离震坤巽兑艮兑坎坤震巽艮坤离乾艮坎离坤震巽坎坤兑坤艮兑震巽震巽坎坤巽坤艮兑兑坎震巽兑”</p>
+<p> binary_text &#x3D; “”<br> for c in text:<br>   binary_text +&#x3D; _hash[c]</p>
+<p> decoded_text &#x3D; “”<br> for i in range(0, len(binary_text), 8):<br>   decoded_text +&#x3D; chr(int(binary_text[i:i+8], 2))</p>
+<p> print(decoded_text)</p>
+<p>运行后发现是乱码，重新查看题目提供的代码，经过辨认可知题目中将9个*编码为90个二进制数字，猜测十个为一组进行修改</p>
+<p>更改后的代码：</p>
+<p>_hash &#x3D; {“乾”: “111”, “兑”: “011”, “离”: “101”, “震”: “001”, “巽”: “110”, “坎”: “010”, “艮”: “100”, “坤”: “000”}</p>
+<p> text &#x3D; “坤乾兑艮兑坎坤坤巽震坤巽震艮兑坎坤震兑乾坤巽坤艮兑震巽坤巽艮坤巽艮艮兑兑艮震兑乾坤乾坤坤兑艮艮坤巽坤坤巽坎坤兑离坎震艮兑坤巽坎艮兑震坤震兑乾坤乾坎坤兑坎坤震艮离坤离乾艮震艮巽震离震坤巽兑艮兑坎坤震巽艮坤离乾艮坎离坤震巽坎坤兑坤艮兑震巽震巽坎坤巽坤艮兑兑坎震巽兑”<br> binary_text &#x3D; “”<br> for c in text:<br>   binary_text +&#x3D; _hash[c]<br> decoded_text &#x3D; “”<br> # 将8换10<br> for i in range(0, len(binary_text), 10):<br>   # 将8换10<br>   decoded_text +&#x3D; chr(int(binary_text[i:i+10], 2))<br> print(decoded_text)</p>
+<p>运行代码，</p>
+<p><img src="/2023/05/15/LiteCTF2023-writeup/clip_image158.gif" alt="img"></p>
+<p>得到flag</p>
+<h2 id="问卷"><a href="#问卷" class="headerlink" title="问卷"></a>问卷</h2><p>点开题目链接，直接看到flag</p>
+<p>NSSCTF{LitCTF_2023?It’s_time_to_g0to_zh1hu!!!}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/15/LiteCTF2023-writeup/" data-id="clhoycn1n0000lsv4bmoh4tzh" data-title="LiteCTF2023_writeup" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-长安杯！宝塔取证writeup" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/" class="article-date">
@@ -1080,55 +1363,6 @@
 
 
   
-    <article id="post-CTFHUB-SSRF-内网访问" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/" class="article-date">
-  <time class="dt-published" datetime="2022-10-15T02:14:30.000Z" itemprop="datePublished">2022-10-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/">CTFHUB-SSRF-内网访问</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>题目有个提示，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/0.png"></p>
-<p>那应该就是传入一个 127.0.0.1&#x2F;flag.php的URL，</p>
-<p>进入靶机后，发现什么都没有，只在URL里发现一个传参的地方，</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/1.png"></p>
-<p>那就试着传 ?url&#x3D;127.0.0.1&#x2F;flag.php，直接发现flag</p>
-<p><img src="/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/2.png"></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/10/15/CTFHUB-SSRF-%E5%86%85%E7%BD%91%E8%AE%BF%E9%97%AE/" data-id="cl9hxo4gu000220v4a1ii59pg" data-title="CTFHUB-SSRF-内网访问" class="article-share-link">分享</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1144,7 +1378,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证</a></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-writeup/">CTF_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证</a></li></ul>
     </div>
   </div>
 
@@ -1159,7 +1393,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
     </div>
   </div>
 
@@ -1170,6 +1404,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/05/15/LiteCTF2023-writeup/">LiteCTF2023_writeup</a>
+          </li>
         
           <li>
             <a href="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/">长安杯！宝塔取证writeup</a>
@@ -1185,10 +1423,6 @@
         
           <li>
             <a href="/2022/11/21/%E5%A4%8D%E6%B4%BBGoogle%E7%BF%BB%E8%AF%91/">复活Google翻译</a>
-          </li>
-        
-          <li>
-            <a href="/2022/10/20/NSSCTF-SWPUCTF-ez-ez-unserialize/">由NSSCTF-SWPUCTF-ez_ez_unserialize，引发对反序列具体详细过程以及对__construct，__destruct函数执行情况深度分析</a>
           </li>
         
       </ul>
