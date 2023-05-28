@@ -74,6 +74,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-CTFHUB-信息泄露-备份文件下载-vim缓存" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" class="article-date">
+  <time class="dt-published" datetime="2022-10-12T09:47:23.000Z" itemprop="datePublished">2022-10-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/">CTFHUB-信息泄露-备份文件下载-vim缓存</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>前置知识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在使用vim时会创建临时缓存文件，关闭vim时缓存文件则会被删除，</span><br><span class="line">当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容</span><br><span class="line"></span><br><span class="line">以 index.php 为例：第一次产生的交换文件名为 .index.php.swp</span><br><span class="line"></span><br><span class="line">再次意外退出后，将会产生名为 .index.php.swo 的交换文件</span><br><span class="line"></span><br><span class="line">第三次产生的交换文件则为 .index.php.swn</span><br></pre></td></tr></table></figure>
+
+<p>进入靶机发现提示</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/1.png"></p>
+<p>由前置知识分析，感觉index.php的vim缓存文件应该是.index.php.swp，.index.php.swo，.index.php.swn其中一个，访问.index.php.swp，下载一个文件，打开直接发现flag</p>
+<p><img src="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/2.png"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-vim%E7%BC%93%E5%AD%98/" data-id="cl9hxo4hg000s20v4a093hzdg" data-title="CTFHUB-信息泄露-备份文件下载-vim缓存" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-CTFHUB-信息泄露-备份文件下载-bak文件" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/10/12/CTFHUB-%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2-%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E4%B8%8B%E8%BD%BD-bak%E6%96%87%E4%BB%B6/" class="article-date">
@@ -302,6 +351,10 @@
       <ul>
         
           <li>
+            <a href="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/">GFW和DNS污染</a>
+          </li>
+        
+          <li>
             <a href="/2023/05/15/LiteCTF2023-writeup/">LiteCTF2023_writeup</a>
           </li>
         
@@ -315,10 +368,6 @@
         
           <li>
             <a href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/">ssh原理及使用</a>
-          </li>
-        
-          <li>
-            <a href="/2022/11/21/%E5%A4%8D%E6%B4%BBGoogle%E7%BF%BB%E8%AF%91/">复活Google翻译</a>
           </li>
         
       </ul>
