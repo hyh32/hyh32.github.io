@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>FOFA语法大全 | Jokak_blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="序号 查询 规则名 规则英文名 描述 标签 FOFA语句    1 google-reverse Google反代服务器 Google  Reverse proxy 不用挂代理就可以访问的Google搜索，但搜索记录可能会被记录。 google body&#x3D;”var c &#x3D; Array.prototype.slice.call(arguments, 1);return fu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FOFA语法大全">
+<meta property="og:url" content="http://example.com/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/index.html">
+<meta property="og:site_name" content="Jokak_blog">
+<meta property="og:description" content="序号 查询 规则名 规则英文名 描述 标签 FOFA语句    1 google-reverse Google反代服务器 Google  Reverse proxy 不用挂代理就可以访问的Google搜索，但搜索记录可能会被记录。 google body&#x3D;”var c &#x3D; Array.prototype.slice.call(arguments, 1);return fu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-27T06:59:44.000Z">
+<meta property="article:modified_time" content="2023-06-27T07:00:16.117Z">
+<meta property="article:author" content="Jokak Doe">
+<meta property="article:tag" content="网络安全">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Jokak_blog" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Jokak_blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-FOFA语法大全" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/" class="article-date">
+  <time class="dt-published" datetime="2023-06-27T06:59:44.000Z" itemprop="datePublished">2023-06-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      FOFA语法大全
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <table>
+<thead>
+<tr>
+<th>序号</th>
+<th>查询</th>
+<th>规则名</th>
+<th>规则英文名</th>
+<th>描述</th>
+<th>标签</th>
+<th>FOFA语句</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>google-reverse</td>
+<td>Google反代服务器</td>
+<td>Google  Reverse proxy</td>
+<td>不用挂代理就可以访问的Google搜索，但搜索记录可能会被记录。</td>
+<td>google</td>
+<td>body&#x3D;”var c &#x3D; Array.prototype.slice.call(arguments, 1);return function() {var d&#x3D;c.slice();”</td>
+</tr>
+<tr>
+<td>2</td>
+<td>python-simplehttp</td>
+<td>Python  SimpleHTTP</td>
+<td>Python  SimpleHTTP Server</td>
+<td>Python  SimpleHTTP临时服务器</td>
+<td>python</td>
+<td>(server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.6.3” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.6.8” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.0” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.1” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.2” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.3” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.4” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.5” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.6” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.7” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.8” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.7.9” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.1” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.2” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.3” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.4” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.5” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.6” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.7” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.8” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.8.9” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.1” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.2” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.3” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.4” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.5” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.6” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.7” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.8” || server&#x3D;”SimpleHTTP&#x2F;0.6 Python&#x2F;3.9.9”) &amp;&amp; title&#x3D;”Directory listing for”</td>
+</tr>
+<tr>
+<td>3</td>
+<td>data-leak</td>
+<td>社工库</td>
+<td>data  leak</td>
+<td>社工库</td>
+<td>fun</td>
+<td>title&#x3D;”社工库” || ((title&#x3D;”社工库” &amp;&amp; title&#x3D;”系统”) || (title&#x3D;”社工库查询” ))</td>
+</tr>
+<tr>
+<td>4</td>
+<td>hfs-rce</td>
+<td>存在命令执行的HFS服务</td>
+<td>Presence  of HFS services for command execution</td>
+<td>这个语法可搜索存在命令执行的HFS服务，使用者多数为抓鸡黑客，可以直接上线能捡到不少有趣的东西~</td>
+<td>fun</td>
+<td>body&#x3D;”HttpFileServer v2.3 beta 287”</td>
+</tr>
+<tr>
+<td>5</td>
+<td>satellite-ftp</td>
+<td>一键日卫星FTP？</td>
+<td>Satellites  FTP</td>
+<td>一键日卫星FTP？</td>
+<td>fun</td>
+<td>banner&#x3D;”Cobham SATCOM”</td>
+</tr>
+<tr>
+<td>6</td>
+<td>mk-mining</td>
+<td>mk路由器全球挖矿感染</td>
+<td>mk  router global mining infection</td>
+<td>mk路由器全球挖矿感染</td>
+<td>fun</td>
+<td>app&#x3D;”Mikrotik-HttpProxy”&amp;&amp;(body&#x3D;”CoinHive.Anonymous” || body&#x3D;”CRLT.Anonymous” || body&#x3D;” WMP.Anonymous(“)”</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ss-manager-login</td>
+<td>ss-Manager  登录</td>
+<td>ss-Manager  Login</td>
+<td>Shadowsocks-Manager</td>
+<td>fun</td>
+<td>body&#x3D;”indeterminate” &amp;&amp; body&#x3D;”MainController” &amp;&amp; header&#x3D;”X-Powered-By: Express”</td>
+</tr>
+<tr>
+<td>8</td>
+<td>heating-monitor</td>
+<td>供暖监控系统</td>
+<td>Heating  monitoring systems</td>
+<td>供暖监控系统</td>
+<td>fun</td>
+<td>body&#x3D;”s1v13.htm”</td>
+</tr>
+<tr>
+<td>9</td>
+<td>free-proxy</td>
+<td>免费代理池</td>
+<td>Free  Proxy Pool</td>
+<td>获取免费代理池</td>
+<td>fun</td>
+<td>body&#x3D;”get all proxy from proxy pool”</td>
+</tr>
+<tr>
+<td>10</td>
+<td>honeypot</td>
+<td>蜜罐</td>
+<td>honeypot</td>
+<td>蜜罐</td>
+<td>fun</td>
+<td>(header&#x3D;”uc-httpd 1.0.0” &amp;&amp; server&#x3D;”JBoss-5.0”) || server&#x3D;”Apache,Tomcat,Jboss,weblogic,phpstudy,struts”</td>
+</tr>
+<tr>
+<td>11</td>
+<td>hacked-website</td>
+<td>被挂黑的站点</td>
+<td>hacked  by xxx</td>
+<td>被挂黑的站点</td>
+<td>fun</td>
+<td>body&#x3D;”hacked by”</td>
+</tr>
+<tr>
+<td>12</td>
+<td>jupyter-unauth</td>
+<td>Jupyter  未授权</td>
+<td>Jupyter  unauthorized</td>
+<td>Jupyter  未授权访问</td>
+<td>unauth</td>
+<td>(body&#x3D;”ipython-main-app” &amp;&amp; title&#x3D;”Home Page - Select or create a notebook”)”</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Apache-APISIX-Dashboard</td>
+<td>APISIX  Dashboard</td>
+<td>Apache  APISIX Dashboard</td>
+<td>Apache  APISIX 仪表板旨在让用户尽可能轻松地通过前端界面操作 Apache APISIX。</td>
+<td>unauth</td>
+<td>title&#x3D;”Apache APISIX Dashboard”</td>
+</tr>
+<tr>
+<td>14</td>
+<td>flash-phishing</td>
+<td>Flash  Phishing</td>
+<td>Flash  Phishing</td>
+<td>Flash  钓鱼攻击页面</td>
+<td>flash,phish</td>
+<td>icon_hash&#x3D;”1506728116” || body&#x3D;”ade42d4f682c4fca28c5f093052433c1”</td>
+</tr>
+<tr>
+<td>15</td>
+<td>redis-unauth</td>
+<td>redis  unauth</td>
+<td>redis  unauth</td>
+<td>redis  unauthorized</td>
+<td>redis,unauth</td>
+<td>protocol&#x3D;”redis” &amp;&amp; banner!&#x3D;”NOAUTH Authentication required.”</td>
+</tr>
+<tr>
+<td>16</td>
+<td>MongoDB</td>
+<td>MongoDB</td>
+<td>MongoDB</td>
+<td>MongoDB</td>
+<td>mongodb,db,unauth</td>
+<td>protocol&#x3D;”MongoDB”</td>
+</tr>
+<tr>
+<td>17</td>
+<td>Jenkins-unauth</td>
+<td>Jenkins  unauth</td>
+<td>Jenkins  unauth</td>
+<td>Jenkins  unauth</td>
+<td>jenkins,unauth</td>
+<td>app&#x3D;”JENKINS” &amp;&amp; title&#x3D;&#x3D;”Dashboard [Jenkins]”</td>
+</tr>
+<tr>
+<td>18</td>
+<td>JBOSS-unauth</td>
+<td>JBOSS  unauth</td>
+<td>JBOSS  unauth</td>
+<td>JBOSS  unauth</td>
+<td>jboss,unauth</td>
+<td>body&#x3D;”JBoss Management”</td>
+</tr>
+<tr>
+<td>19</td>
+<td>memcached</td>
+<td>memcached</td>
+<td>memcached</td>
+<td>memcached</td>
+<td>memcached,unauth</td>
+<td>app&#x3D;”MEMCACHED”</td>
+</tr>
+<tr>
+<td>20</td>
+<td>hadoop-yarn</td>
+<td>APACHE  hadoop YARN</td>
+<td>APACHE  hadoop YARN</td>
+<td>APACHE  hadoop YARN</td>
+<td>hadoop,unauth</td>
+<td>app&#x3D;”APACHE-hadoop-YARN”</td>
+</tr>
+<tr>
+<td>21</td>
+<td>kubernetes</td>
+<td>kubernetes</td>
+<td>kubernetes</td>
+<td>kubernetes</td>
+<td>kubernetes,unauth</td>
+<td>app&#x3D;”kubernetes”</td>
+</tr>
+<tr>
+<td>22</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper</td>
+<td>ZooKeeper,unauth</td>
+<td>app&#x3D;”APACHE-ZooKeeper”</td>
+</tr>
+<tr>
+<td>23</td>
+<td>sqlserver</td>
+<td>sqlserver</td>
+<td>sqlserver</td>
+<td>sqlserver</td>
+<td>sqlserver,db,unauth</td>
+<td>app&#x3D;”Microsoft-SQL-Server”</td>
+</tr>
+<tr>
+<td>24</td>
+<td>mysql</td>
+<td>mysql</td>
+<td>mysql</td>
+<td>mysql</td>
+<td>mysql,db,unauth</td>
+<td>app&#x3D;”mysql”</td>
+</tr>
+<tr>
+<td>25</td>
+<td>vnc</td>
+<td>VNC</td>
+<td>VNC</td>
+<td>VNC</td>
+<td>vnc,unauth</td>
+<td>app&#x3D;”VNC”</td>
+</tr>
+<tr>
+<td>26</td>
+<td>docker</td>
+<td>docker</td>
+<td>docker</td>
+<td>docker</td>
+<td>docker,unauth</td>
+<td>protocol&#x3D;&#x3D;”docker”</td>
+</tr>
+<tr>
+<td>27</td>
+<td>CouchDB</td>
+<td>CouchDB</td>
+<td>CouchDB</td>
+<td>CouchDB</td>
+<td>CouchDB,db,unauth</td>
+<td>app&#x3D;”APACHE-CouchDB”</td>
+</tr>
+<tr>
+<td>28</td>
+<td>rsync</td>
+<td>rsync</td>
+<td>rsync</td>
+<td>rsync</td>
+<td>rsync,unauth</td>
+<td>app&#x3D;”rsync”</td>
+</tr>
+<tr>
+<td>29</td>
+<td>Atlassian-Crowd</td>
+<td>Atlassian-Crowd</td>
+<td>Atlassian-Crowd</td>
+<td>Atlassian-Crowd</td>
+<td>crowd,unauth</td>
+<td>app&#x3D;”Atlassian-Crowd-Login”</td>
+</tr>
+<tr>
+<td>30</td>
+<td>nfs</td>
+<td>nfs</td>
+<td>nfs</td>
+<td>nfs</td>
+<td>nfs,unauth</td>
+<td>“nfs” &amp;&amp; port&#x3D;”2049”</td>
+</tr>
+<tr>
+<td>31</td>
+<td>Dubbo</td>
+<td>阿里-Dubbo</td>
+<td>Dubbo</td>
+<td>Dubbo</td>
+<td>dubbo,unauth</td>
+<td>app&#x3D;”阿里巴巴-dubbo”</td>
+</tr>
+<tr>
+<td>32</td>
+<td>ftp</td>
+<td>ftp</td>
+<td>ftp</td>
+<td>ftp</td>
+<td>ftp,unauth</td>
+<td>protocol&#x3D;”ftp”</td>
+</tr>
+<tr>
+<td>33</td>
+<td>Kibana</td>
+<td>Kibana</td>
+<td>Kibana</td>
+<td>Kibana</td>
+<td>kibana,unauth</td>
+<td>app&#x3D;”Kibana”</td>
+</tr>
+<tr>
+<td>34</td>
+<td>ldap</td>
+<td>ldap</td>
+<td>ldap</td>
+<td>ldap</td>
+<td>ldap,unauth</td>
+<td>protocol&#x3D;”ldap”</td>
+</tr>
+<tr>
+<td>35</td>
+<td>Spark</td>
+<td>Spark</td>
+<td>Spark</td>
+<td>Spark</td>
+<td>spark,unauth</td>
+<td>app&#x3D;”Spark”</td>
+</tr>
+<tr>
+<td>36</td>
+<td>weblogic  unauth</td>
+<td>weblogic  unauth</td>
+<td>weblogic  unauth</td>
+<td>weblogic  unauth</td>
+<td>weblogic,unauth</td>
+<td>app&#x3D;”BEA-WebLogic-Server” || app&#x3D;”Weblogic_interface_7001”</td>
+</tr>
+<tr>
+<td>37</td>
+<td>zabbix</td>
+<td>zabbix</td>
+<td>zabbix</td>
+<td>zabbix</td>
+<td>zabbix,unauth</td>
+<td>app&#x3D;”ZABBIX-监控系统”</td>
+</tr>
+<tr>
+<td>38</td>
+<td>alibaba-nacos</td>
+<td>Alibaba  Nacos</td>
+<td>Alibaba  Nacos</td>
+<td>Alibaba  Nacos</td>
+<td>nacos,unauth</td>
+<td>title&#x3D;”Nacos”</td>
+</tr>
+<tr>
+<td>39</td>
+<td>cortex-xsoar</td>
+<td>Cortex  XSOAR</td>
+<td>Cortex  XSOAR</td>
+<td>Cortex  XSOAR</td>
+<td>xsoar,unauth</td>
+<td>app&#x3D;”Cortex-XSOAR”</td>
+</tr>
+<tr>
+<td>40</td>
+<td>APACHE-ActiveMQ</td>
+<td>APACHE  ActiveMQ</td>
+<td>APACHE  ActiveMQ</td>
+<td>&gt;Apache  ActiveMQ® 是最流行的开源、多协议、基于 Java 的消息代理。</td>
+<td>log4j2,unauth,fofa</td>
+<td>app&#x3D;”APACHE-ActiveMQ”</td>
+</tr>
+<tr>
+<td>41</td>
+<td>Apache_OFBiz</td>
+<td>Apache  OFBiz</td>
+<td>Apache  OFBiz</td>
+<td>Apache  OFBiz是一个开源的企业资源计划系统。它提供了一套集成和自动化许多企业的业务流程的企业应用程序。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Apache_OFBiz”</td>
+</tr>
+<tr>
+<td>42</td>
+<td>Jenkins</td>
+<td>Jenkins</td>
+<td>Jenkins</td>
+<td>Jenkins是一款由Java编写的开源的持续集成工具。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Jenkins”</td>
+</tr>
+<tr>
+<td>43</td>
+<td>RabbitMQ</td>
+<td>RabbitMQ</td>
+<td>RabbitMQ</td>
+<td>RabbitMQ  是最流行的开源消息代理之一。RabbitMQ 是轻量级的，易于在本地和云中部署。</td>
+<td>log4j2,unauth,fofa</td>
+<td>app&#x3D;”RabbitMQ”</td>
+</tr>
+<tr>
+<td>44</td>
+<td>Jedis</td>
+<td>Jedis</td>
+<td>Jedis</td>
+<td>Jedis是Redis官方推荐的Java连接开发工具。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Jedis”</td>
+</tr>
+<tr>
+<td>45</td>
+<td>APACHE-tika</td>
+<td>APACHE  tika</td>
+<td>APACHE  tika</td>
+<td>Apache  Tika是一个用java编写的内容检测和分析框架，是Apache的Lucene项目的子项目。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-tika”</td>
+</tr>
+<tr>
+<td>46</td>
+<td>致远互联-FE</td>
+<td>致远互联  FE</td>
+<td>致远互联  FE</td>
+<td>智远互联推出的办公自动化（Office  Automation，简称OA），是将计算机、通信等现代化技术运用到传统办公方式，进而形成的一种新型办公方式。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”致远互联-FE”</td>
+</tr>
+<tr>
+<td>47</td>
+<td>泛微-EMobile</td>
+<td>泛微  EMobile</td>
+<td>泛微  EMobile</td>
+<td>e-mobile一款由上海泛微网络科技股份有限公司开发的移动办公产品，专门为手机、平板电脑等移动终端用户精心打造的移动办公产品。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”泛微-EMobile”</td>
+</tr>
+<tr>
+<td>48</td>
+<td>泛微-E-Weaver</td>
+<td>泛微  E Weaver</td>
+<td>泛微  E Weaver</td>
+<td>泛微协同管理平台e-weaver继承e-cology八大功能模块应用，并可进一步打通企业更深层的个性管理需求，基于“协同”思想打造全面整合企业管理资源的环境。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”泛微-E-Weaver”</td>
+</tr>
+<tr>
+<td>49</td>
+<td>泛微-协同办公OA</td>
+<td>泛微  协同办公OA</td>
+<td>泛微  协同办公OA</td>
+<td>泛微e-cology依托全新的设计理念，全新的管理思想，为中大型组织创建全新的高效协同办公环境。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”泛微-协同办公OA”</td>
+</tr>
+<tr>
+<td>50</td>
+<td>致远互联-OA</td>
+<td>致远互联  OA</td>
+<td>致远互联  OA</td>
+<td>致远互联推出的办公自动化（Office  Automation，简称OA），是将计算机、通信等现代化技术运用到传统办公方式，进而形成的一种新型办公方式。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”致远互联-OA”</td>
+</tr>
+<tr>
+<td>51</td>
+<td>致远A6</td>
+<td>致远A6</td>
+<td>致远A6</td>
+<td>用友致远A6协同管理系统：面向广大的企事业组织应用设计，是一个基于互联网的高效协同工作平台和优秀的协同管理系统。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”致远A6”</td>
+</tr>
+<tr>
+<td>52</td>
+<td>致远A8</td>
+<td>致远A8</td>
+<td>致远A8</td>
+<td>A8协同管理软件是面向中型、大型、集团型组织机构、涉外工作组织及组织群，针对其异地管理、跨区域分支机构、跨地域审批等大范围协作应用设计的集团管控和信息资源管控的综合平台。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”致远A8”</td>
+</tr>
+<tr>
+<td>53</td>
+<td>用友-ERP-NC</td>
+<td>用友  ERP NC</td>
+<td>用友  ERP NC</td>
+<td>用友NC服务大型企业互联网化，互联网创造了新的经济形态和运行模式，正在成为经济发展新引擎，企业互联网化是大型企业信息化的新进阶。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”用友-ERP-NC”</td>
+</tr>
+<tr>
+<td>54</td>
+<td>用友-GRP-U8</td>
+<td>用友  GRP U8</td>
+<td>用友  GRP U8</td>
+<td>用友GRP-U8是由用友开发的行政事业单位内控的管理软件。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”用友-GRP-U8”</td>
+</tr>
+<tr>
+<td>55</td>
+<td>用友-UFIDA-NC</td>
+<td>用友-UFIDA-NC</td>
+<td>用友  UFIDA NC</td>
+<td>UFIDA  NC是高端管理软件产品，提供了包括财务会计、管理会计、资金管理、资产管理、预算管理、人力资源管理、供应链、分销、多工厂制造、分析决策、合并报表等完整的解决方案。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”用友-UFIDA-NC”</td>
+</tr>
+<tr>
+<td>56</td>
+<td>jeewms</td>
+<td>jeewms</td>
+<td>jeewms</td>
+<td>jeewms是一个基于JAVA的仓库管理系统,是由灵鹿谷科技主导的开源项目,WMS在经过多家公司上线运行后,为了降低物流仓储企业的信息化成本,决定全面开源此产品。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”jeewms”</td>
+</tr>
+<tr>
+<td>57</td>
+<td>APACHE-Skywalking</td>
+<td>APACHE  Skywalking</td>
+<td>APACHE  Skywalking</td>
+<td>SkyWalking  是一个可观察性分析平台和应用程序性能管理系统。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-Skywalking”</td>
+</tr>
+<tr>
+<td>58</td>
+<td>Struts2</td>
+<td>Struts2</td>
+<td>Struts2</td>
+<td>Apache  Struts 2是一个用于开发Java EE网络应用程序的开放源代码网页应用程序架构。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Struts2”</td>
+</tr>
+<tr>
+<td>59</td>
+<td>APACHE-Shiro</td>
+<td>APACHE  Shiro</td>
+<td>APACHE  Shiro</td>
+<td>Apache  Shiro是一个开源安全框架，提供身份验证、授权、密码学和会话管理。Shiro框架直观、易用，同时也能提供健壮的安全性。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-Shiro”</td>
+</tr>
+<tr>
+<td>60</td>
+<td>JEECMS</td>
+<td>JEECMS</td>
+<td>JEECMS</td>
+<td>jeecms基于java、vue、springboot等技术自主研发的开源内容管理系统(cms,  java cms,jsp cms),可高效快捷新闻采编、发布、模板设计制作,具有性能稳定,安全,易扩展等特点</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”JEECMS”</td>
+</tr>
+<tr>
+<td>61</td>
+<td>JeeSite</td>
+<td>JeeSite</td>
+<td>JeeSite</td>
+<td>JeeSite  是 Spring Boot 目前最好的快速开发平台, Java 开源框架,  使用经典技术组合：SpringBoot、SpringCloud、MyBatis、Shiro、Beetl、Bootstrap、AdminLTE 等。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”JeeSite”</td>
+</tr>
+<tr>
+<td>62</td>
+<td>APACHE-dubbo</td>
+<td>APACHE  dubbo</td>
+<td>APACHE  dubbo</td>
+<td>Apache  Dubbo 是一款高性能、轻量级的开源服务框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-dubbo”</td>
+</tr>
+<tr>
+<td>63</td>
+<td>OPENCms</td>
+<td>OPENCms</td>
+<td>OPENCms</td>
+<td>OpenCms  是一个专业的、易于使用的网站内容管理系统。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”OPENCms”</td>
+</tr>
+<tr>
+<td>64</td>
+<td>JEECG</td>
+<td>JEECG</td>
+<td>JEECG</td>
+<td>JeecgBoot是一款基于BPM的低代码平台！前后端分离架构  SpringBoot 2.x，SpringCloud，Ant  Design&amp;Vue，Mybatis-plus，Shiro，JWT，支持微服务。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”JEECG”</td>
+</tr>
+<tr>
+<td>65</td>
+<td>Jeeplus</td>
+<td>Jeeplus</td>
+<td>Jeeplus</td>
+<td>Jeeplus，一个集成了代码生成器的java快速开发框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Jeeplus”</td>
+</tr>
+<tr>
+<td>66</td>
+<td>MyBatis</td>
+<td>MyBatis</td>
+<td>MyBatis</td>
+<td>MyBatis是一个Java持久化框架，它通过XML描述符或注解把对象与存储过程或SQL语句关联起来，映射成数据库内对应的纪录。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”MyBatis”</td>
+</tr>
+<tr>
+<td>67</td>
+<td>vmware-SpringBoot-Framework</td>
+<td>vmware  SpringBoot Framework</td>
+<td>vmware  SpringBoot Framework</td>
+<td>Spring  Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-SpringBoot-Framework”</td>
+</tr>
+<tr>
+<td>68</td>
+<td>APACHE-Solr</td>
+<td>APACHE-Solr</td>
+<td>APACHE-Solr</td>
+<td>Solr是Apache  Lucene项目的开源企业搜索平台。</td>
+<td>log4j2,unauth,fofa</td>
+<td>app&#x3D;”APACHE-Solr”</td>
+</tr>
+<tr>
+<td>69</td>
+<td>Map&#x2F;Reduce</td>
+<td>Map&#x2F;Reduce</td>
+<td>Map&#x2F;Reduce</td>
+<td>Apache  Hadoop是一款支持数据密集型分布式应用程序并以Apache 2.0许可协议发布的开源软件框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Map&#x2F;Reduce”</td>
+</tr>
+<tr>
+<td>70</td>
+<td>CLOUDERA-Hadoop-Hue</td>
+<td>CLOUDERA  Hadoop Hue</td>
+<td>CLOUDERA  Hadoop Hue</td>
+<td>Apache  Hadoop是一款支持数据密集型分布式应用程序并以Apache 2.0许可协议发布的开源软件框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”CLOUDERA-Hadoop-Hue”</td>
+</tr>
+<tr>
+<td>71</td>
+<td>APACHE-hadoop-YARN</td>
+<td>APACHE  hadoop YARN</td>
+<td>APACHE  hadoop YARN</td>
+<td>Apache  Hadoop是一款支持数据密集型分布式应用程序并以Apache 2.0许可协议发布的开源软件框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-hadoop-YARN”</td>
+</tr>
+<tr>
+<td>72</td>
+<td>APACHE-hadoop-HttpFS</td>
+<td>APACHE  hadoop HttpFS</td>
+<td>APACHE  hadoop HttpFS</td>
+<td>Apache  Hadoop是一款支持数据密集型分布式应用程序并以Apache 2.0许可协议发布的开源软件框架。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-hadoop-HttpFS”</td>
+</tr>
+<tr>
+<td>73</td>
+<td>Oracle-E-Business-Suite</td>
+<td>Oracle  E Business-Suite</td>
+<td>Oracle  E Business-Suite</td>
+<td>Oracle  电子商务套件支持当今不断发展的业务模型、提高生产力并满足现代移动用户的需求。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Oracle-E-Business-Suite”</td>
+</tr>
+<tr>
+<td>74</td>
+<td>splunk-日志分析</td>
+<td>splunk  日志分析</td>
+<td>splunk  日志分析</td>
+<td>Splunk  是用于机器生成数据、非结构化&#x2F;结构化和复杂多行数据的集中日志分析工具。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”splunk-日志分析”</td>
+</tr>
+<tr>
+<td>75</td>
+<td>vmware-vCenter</td>
+<td>vmware  vCenter</td>
+<td>vmware  vCenter</td>
+<td>VMware  vCenter Server 提供了一个可伸缩、可扩展的平台，为虚拟化管理奠定了基础。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-vCenter”</td>
+</tr>
+<tr>
+<td>76</td>
+<td>APACHE-Storm</td>
+<td>APACHE  Storm</td>
+<td>APACHE  Storm</td>
+<td>Storm  是一个分布式实时大数据处理系统，可以帮助我们方便地处理海量数据，具有高可靠、高容错、高扩展的特点。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-Storm”</td>
+</tr>
+<tr>
+<td>77</td>
+<td>用友-NC-Cloud</td>
+<td>用友  NC Cloud</td>
+<td>用友  NC Cloud</td>
+<td>NC  Cloud，帮助企业打造数字化商业创新平台，实现业务创新、管理变革、金融嵌入的全面数字化。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”用友-NC-Cloud”</td>
+</tr>
+<tr>
+<td>78</td>
+<td>APACHE-Druid</td>
+<td>APACHE  Druid</td>
+<td>APACHE  Druid</td>
+<td>Druid是用Java编写的面向列的，开放源代码的分布式数据存储。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-Druid”</td>
+</tr>
+<tr>
+<td>79</td>
+<td>vmware-Spring-Framework</td>
+<td>vmware  Spring-Framework</td>
+<td>vmware  Spring-Framework</td>
+<td>Spring使Java编程对每个人都更快、更容易、更安全。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Spring-Framework”</td>
+</tr>
+<tr>
+<td>80</td>
+<td>JavaMelody</td>
+<td>JavaMelody</td>
+<td>JavaMelody</td>
+<td>JavaMelody  的目标是在 QA 和生产环境中监控 Java 或 Java EE 应用程序。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”JavaMelody”</td>
+</tr>
+<tr>
+<td>81</td>
+<td>openNMS-产品</td>
+<td>openNMS  产品</td>
+<td>openNMS  产品</td>
+<td>OpenNMS是一个免费的开源企业级网络监视和网络管理平台。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”openNMS-产品”</td>
+</tr>
+<tr>
+<td>82</td>
+<td>APACHE-Unomi</td>
+<td>APACHE  Unomi</td>
+<td>APACHE  Unomi</td>
+<td>Apache  Unomi是一个 Java 开源客户数据平台，是一个 Java 服务器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-Unomi”</td>
+</tr>
+<tr>
+<td>83</td>
+<td>ECLIPSE-jetty</td>
+<td>ECLIPSE  jetty</td>
+<td>ECLIPSE  jetty</td>
+<td>Jetty是一个纯粹的基于Java的网页服务器和Java  Servlet容器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”ECLIPSE-jetty”</td>
+</tr>
+<tr>
+<td>84</td>
+<td>elastic-Elasticsearch</td>
+<td>elastic  Elasticsearch</td>
+<td>elastic  Elasticsearch</td>
+<td>Elasticsearch是一个基于Lucene库的搜索引擎。</td>
+<td>log4j2,fofa,unauth</td>
+<td>app&#x3D;”elastic-Elasticsearch”</td>
+</tr>
+<tr>
+<td>85</td>
+<td>RedHat-Jboss</td>
+<td>RedHat  Jboss</td>
+<td>RedHat  Jboss</td>
+<td>一种开源的Java  EE 8 兼容应用服务器，让您只需构建Java 应用一次便可部署到所有位置。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”RedHat-Jboss”</td>
+</tr>
+<tr>
+<td>86</td>
+<td>Openfire</td>
+<td>Openfire</td>
+<td>Openfire</td>
+<td>Openfire  是根据开源 Apache 许可证获得许可的实时协作 (RTC) 服务器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Openfire”</td>
+</tr>
+<tr>
+<td>87</td>
+<td>Oracle-BEA-WebLogic-Server</td>
+<td>Oracle  BEA WebLogic Server</td>
+<td>Oracle  BEA WebLogic Server</td>
+<td>BEA  WebLogic Server是一个可扩展的, Java Two Enterprise Edition (J2EE) 应用服务器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Oracle-BEA-WebLogic-Server”</td>
+</tr>
+<tr>
+<td>88</td>
+<td>Oracle-Weblogic_interface_7001</td>
+<td>Oracle  Weblogic interface 7001</td>
+<td>Oracle  Weblogic interface 7001</td>
+<td>WebLogic是美商Oracle的主要产品之一，系购并得来。是商业市场上主要的Java应用服务器软件之一，是世界上第一个成功商业化的J2EE应用服务器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Oracle-Weblogic_interface_7001”</td>
+</tr>
+<tr>
+<td>89</td>
+<td>Oracle-BI-Publisher-Enterprise</td>
+<td>Oracle  BI-Publisher Enterprise</td>
+<td>Oracle  BI Publisher Enterprise</td>
+<td>Oracle  XML Publisher是Oracle Corporation的最新报告技术</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Oracle-BI-Publisher-Enterprise”</td>
+</tr>
+<tr>
+<td>90</td>
+<td>vmware-vSphere-Web-Client</td>
+<td>vmware  vSphere Web-Client</td>
+<td>vmware  vSphere Web-Client</td>
+<td>vSphere  Web Client是为忙碌的管理员提供的一款通用的、基于浏览器的VMware管理工具，能够监控并管理VMware基础设施。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-vSphere-Web-Client”</td>
+</tr>
+<tr>
+<td>91</td>
+<td>RedHat-JBoss-AS</td>
+<td>RedHat  JBoss AS</td>
+<td>RedHat  JBoss AS</td>
+<td>一种开源的Java  EE 8 兼容应用服务器，让您只需构建Java 应用一次便可部署到所有位置。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”RedHat-JBoss-AS”</td>
+</tr>
+<tr>
+<td>92</td>
+<td>用友-ism</td>
+<td>用友  ism</td>
+<td>yongyou  ism</td>
+<td>iSM智能服务管理器。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”用友-ism”</td>
+</tr>
+<tr>
+<td>93</td>
+<td>amazon-cloudfront</td>
+<td>CloudFront</td>
+<td>CloudFront</td>
+<td>CloudFront。</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”amazon-CloudFront”</td>
+</tr>
+<tr>
+<td>94</td>
+<td>vmware-horizon</td>
+<td>vmware  Horizon</td>
+<td>vmware  Horizon</td>
+<td>vmware  Horizon</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Horizon”</td>
+</tr>
+<tr>
+<td>95</td>
+<td>reactive-mongo</td>
+<td>Reactive  Mongo</td>
+<td>Reactive  Mongo</td>
+<td>Reactive  Mongo</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Reactive_Mongo”</td>
+</tr>
+<tr>
+<td>96</td>
+<td>vmware-unified-access-gateway</td>
+<td>vmware  Unified Access Gateway</td>
+<td>vmware  Unified Access Gateway</td>
+<td>vmware  Unified Access Gateway</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Unified-Access-Gateway”</td>
+</tr>
+<tr>
+<td>97</td>
+<td>FORESCOUT-Administration</td>
+<td>FORESCOUT  Administration</td>
+<td>FORESCOUT  Administration</td>
+<td>FORESCOUT  Administration</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”FORESCOUT-Administration”</td>
+</tr>
+<tr>
+<td>98</td>
+<td>vmware-Tanzu-Observability</td>
+<td>vmware  Tanzu Observability</td>
+<td>vmware  Tanzu Observability</td>
+<td>vmware  Tanzu Observability</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Tanzu-Observability”</td>
+</tr>
+<tr>
+<td>99</td>
+<td>druid-server</td>
+<td>druid  server</td>
+<td>druid  server</td>
+<td>druid  server</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”druid-server”</td>
+</tr>
+<tr>
+<td>100</td>
+<td>amazon  CodePipeline</td>
+<td>amazon  CodePipeline</td>
+<td>amazon  CodePipeline</td>
+<td>amazon  CodePipeline</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”amazon-CodePipeline”</td>
+</tr>
+<tr>
+<td>101</td>
+<td>CISCO-CloudCenter-Suite</td>
+<td>CISCO  CloudCenter Suite</td>
+<td>CISCO  CloudCenter Suite</td>
+<td>CISCO  CloudCenter Suite</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”CISCO-CloudCenter-Suite”</td>
+</tr>
+<tr>
+<td>102</td>
+<td>vmware-Site-Recovery-Manager</td>
+<td>vmware  Site Recovery Manager</td>
+<td>vmware  Site Recovery Manager</td>
+<td>vmware  Site Recovery Manager</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Site-Recovery-Manager”</td>
+</tr>
+<tr>
+<td>103</td>
+<td>vmware-Spring-Batch</td>
+<td>vmware  Spring Batch</td>
+<td>vmware  Spring Batch</td>
+<td>vmware  Spring Batch</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Spring-Batch”</td>
+</tr>
+<tr>
+<td>104</td>
+<td>BROADCOM-Advanced-Threat-Protection</td>
+<td>BROADCOM  Advanced Threat Protection</td>
+<td>BROADCOM  Advanced Threat Protection</td>
+<td>BROADCOM  Advanced Threat Protection</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”BROADCOM-Advanced-Threat-Protection”</td>
+</tr>
+<tr>
+<td>105</td>
+<td>amazon-greengrass</td>
+<td>amazon  greengrass</td>
+<td>amazon  greengrass</td>
+<td>amazon  greengrass</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”amazon-greengrass”</td>
+</tr>
+<tr>
+<td>106</td>
+<td>vmware-Horizon-DaaS</td>
+<td>vmware  Horizon DaaS</td>
+<td>vmware  Horizon DaaS</td>
+<td>vmware  Horizon DaaS</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”vmware-Horizon-DaaS”</td>
+</tr>
+<tr>
+<td>107</td>
+<td>Apache-Log4j-Web</td>
+<td>Apache  Log4j Web</td>
+<td>Apache  Log4j Web</td>
+<td>Apache  Log4j Web</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”Apache-Log4j-Web”</td>
+</tr>
+<tr>
+<td>108</td>
+<td>APACHE-JMeter</td>
+<td>APACHE  JMeter</td>
+<td>APACHE  JMeter</td>
+<td>APACHE  JMeter</td>
+<td>log4j2,fofa</td>
+<td>app&#x3D;”APACHE-JMeter”</td>
+</tr>
+<tr>
+<td>109</td>
+<td>JSPWiki</td>
+<td>JSPWiki</td>
+<td>JSPWiki</td>
+<td>JSPWiki</td>
+<td>log4j2,jsqj</td>
+<td>body&#x3D;”JSPWiki”</td>
+</tr>
+<tr>
+<td>110</td>
+<td>Apache-James</td>
+<td>Apache  James</td>
+<td>Apache  James</td>
+<td>Apache  James</td>
+<td>log4j2,jsqj</td>
+<td>port&#x3D;”25” &amp;&amp; “James”</td>
+</tr>
+<tr>
+<td>111</td>
+<td>Mobilelron</td>
+<td>Mobilelron</td>
+<td>Mobilelron</td>
+<td>Mobilelron</td>
+<td>log4j2,jsqj</td>
+<td>body&#x3D;”&#x2F;mifs”</td>
+</tr>
+<tr>
+<td>112</td>
+<td>UniFi</td>
+<td>UniFi</td>
+<td>UniFi</td>
+<td>UniFi</td>
+<td>log4j2,jsqj</td>
+<td>title&#x3D;&#x3D;”UniFi”||app&#x3D;”UniFi-Network”||app&#x3D;”UNIFI-unifi-摄像头”</td>
+</tr>
+<tr>
+<td>113</td>
+<td>Struts2-more</td>
+<td>Struts2  more</td>
+<td>Struts2  more</td>
+<td>Struts2  more</td>
+<td>log4j2,jsqj</td>
+<td>header&#x3D;”If-Modified-Since”</td>
+</tr>
+<tr>
+<td>114</td>
+<td>projector</td>
+<td>projector</td>
+<td>projector</td>
+<td>Jetbrains  projector</td>
+<td>projector,unauth</td>
+<td>body&#x3D;”projector-client-web”</td>
+</tr>
+<tr>
+<td>115</td>
+<td>jupyter-lab-unauth</td>
+<td>Jupyter  Lab unauth</td>
+<td>Jupyter  Lab unauth</td>
+<td>Jupyter-Lab-unauth</td>
+<td>jupyter-lab,unauth</td>
+<td>body&#x3D;”jupyter-config-data” &amp;&amp; title&#x3D;”JupyterLab”</td>
+</tr>
+<tr>
+<td>116</td>
+<td>shiro</td>
+<td>shiro</td>
+<td>shiro</td>
+<td>Apache-Shiro</td>
+<td>shiro</td>
+<td>header&#x3D;”rememberMe&#x3D;” || header&#x3D;”&#x3D;deleteMe” || header&#x3D;”shiro-cas” || body&#x3D;” shiro“</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/" data-id="cljdxuijn0000tkv4dtad141e" data-title="FOFA语法大全" class="article-share-link">分享</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">GFW和DNS污染</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CTFHUB-web-writeup/">CTFHUB_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-web-writeup/">CTF_web_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF-writeup/">CTF_writeup</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E5%AD%97%E5%8F%96%E8%AF%81/">数字取证</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/">FOFA语法大全</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/">GFW和DNS污染</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/15/LiteCTF2023-writeup/">LiteCTF2023_writeup</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/28/%E9%95%BF%E5%AE%89%E6%9D%AF%EF%BC%81%E5%AE%9D%E5%A1%94%E5%8F%96%E8%AF%81writeup/">长安杯！宝塔取证writeup</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">Github搜索技巧</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2023 Jokak Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

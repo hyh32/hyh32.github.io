@@ -22,7 +22,7 @@
 <meta property="og:image" content="http://example.com/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/image-20230528195200177.png">
 <meta property="og:image" content="http://example.com/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/image-20230528175626640.png">
 <meta property="article:published_time" content="2023-05-28T09:07:42.000Z">
-<meta property="article:modified_time" content="2023-05-28T11:52:03.545Z">
+<meta property="article:modified_time" content="2023-05-28T11:55:42.386Z">
 <meta property="article:author" content="Jokak Doe">
 <meta property="article:tag" content="网络安全">
 <meta name="twitter:card" content="summary">
@@ -125,7 +125,7 @@
 <p>我们可以把google域名和ip的映射关系添加到hosts文件中，这样的话，当我们访问google域名的时候，客户端直接就能知道域名的ip地址，而不需要再向DNS域名服务器发送请求了，</p>
 <p>假设此时客户端向google发送的数据包形式如下，</p>
 <p><img src="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/image-20230528194538679.png"></p>
-<p>当这个数据包经过GFW，GFW会解析到应用层的流量数据，当检测到不合法的ip或者内容时，GFW可能会直接把这个数据包给拦截丢弃，也可以伪装成google服务器，返回给客户端一个数据包，</p>
+<p>当这个数据包经过GFW，GFW会解析到应用层的流量数据，当检测到不合法的ip或者内容时，GFW可能会直接把这个数据包给拦截丢弃，也可以伪装成google服务器，将数据包中的ip修改，然后再返回给客户端</p>
 <p><img src="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/image-20230528195200177.png"></p>
 <p><img src="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/image-20230528175626640.png"></p>
 
@@ -141,6 +141,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          FOFA语法大全
+        
+      </div>
+    </a>
   
   
     <a href="/2023/05/15/LiteCTF2023-writeup/" id="article-nav-older" class="article-nav-link-wrap">
@@ -177,7 +186,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/06/">六月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">四月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">三月 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/">十一月 2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/">十月 2022</a></li></ul>
     </div>
   </div>
 
@@ -188,6 +197,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2023/06/27/FOFA%E8%AF%AD%E6%B3%95%E5%A4%A7%E5%85%A8/">FOFA语法大全</a>
+          </li>
         
           <li>
             <a href="/2023/05/28/GFW%E5%92%8CDNS%E6%B1%A1%E6%9F%93/">GFW和DNS污染</a>
@@ -203,10 +216,6 @@
         
           <li>
             <a href="/2023/04/18/Github%E6%90%9C%E7%B4%A2%E6%8A%80%E5%B7%A7/">Github搜索技巧</a>
-          </li>
-        
-          <li>
-            <a href="/2023/03/19/ssh%E5%8E%9F%E7%90%86%E5%8F%8A%E4%BD%BF%E7%94%A8/">ssh原理及使用</a>
           </li>
         
       </ul>
